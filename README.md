@@ -6,6 +6,8 @@
 
 ## Quick Start
 
+> Guide modified & updated according to our needs
+
     # Clone the application
     $ git clone https://github.com/kirankumargonti/expense-tracker-react-native.git
 
@@ -13,6 +15,12 @@
     $ npm install
         or
     $ expo install
+    
+    # Update expo SDK version to 44
+    $ expo upgrade 44
+    
+    # Add firebase configurations in firebase.js
+    Modify `const firebaseConfig = { }` in firebase.js file
 
     # Run application
     $ npm start
