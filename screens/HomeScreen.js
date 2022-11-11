@@ -1,10 +1,9 @@
-import React, {useEffect, useLayoutEffect, useState} from 'react'
-import {StyleSheet, View, TouchableOpacity} from 'react-native'
-import {Text, Avatar, ListItem} from 'react-native-elements'
-import {auth, db} from '../firebase'
-import {StatusBar} from 'expo-status-bar'
-import {AntDesign, Feather, FontAwesome5} from '@expo/vector-icons'
+import { AntDesign, FontAwesome5 } from '@expo/vector-icons'
+import React, { useEffect, useLayoutEffect, useState } from 'react'
+import { StyleSheet, TouchableOpacity, View } from 'react-native'
+import { Avatar, Text } from 'react-native-elements'
 import CustomListItem from '../components/CustomListItem'
+import { auth, db } from '../firebase'
 
 const HomeScreen = ({navigation}) => {
   const signOutUser = () => {
@@ -15,11 +14,15 @@ const HomeScreen = ({navigation}) => {
   }
   useLayoutEffect(() => {
     navigation.setOptions({
-      title: 'Expense Tracker',
+      title: 'RECEIPIFY',
+      headerStyle: { 
+        backgroundColor: '#90BE6D',
+      },
+      headerTintColor: 'white',
       headerRight: () => (
         <View style={{marginRight: 20}}>
           <TouchableOpacity activeOpacity={0.5} onPress={signOutUser}>
-            <Text style={{fontWeight: 'bold'}}>Logout</Text>
+            <Text style={{fontWeight: 'bold', color: 'white'}}>Logout</Text>
           </TouchableOpacity>
         </View>
       ),
@@ -40,18 +43,9 @@ const HomeScreen = ({navigation}) => {
               data: doc.data(),
             }))
           ) &
-          setTotalIncome(
-            snapshot.docs.map((doc) =>
-              doc.data()?.email === auth.currentUser.email &&
-              doc.data()?.type == 'income'
-                ? doc.data().price
-                : 0
-            )
-          ) &
           setTotalExpense(
             snapshot.docs.map((doc) =>
-              doc.data()?.email === auth.currentUser.email &&
-              doc.data()?.type == 'expense'
+              doc.data()?.email === auth.currentUser.email
                 ? doc.data().price
                 : 0
             )
@@ -62,19 +56,10 @@ const HomeScreen = ({navigation}) => {
   }, [])
 
   // stufff
-  const [totalIncome, setTotalIncome] = useState([])
-  const [income, setIncome] = useState(0)
   const [totalExpense, setTotalExpense] = useState([])
   const [expense, setExpense] = useState(0)
-  const [totalBalance, setTotalBalance] = useState(0)
+  
   useEffect(() => {
-    if (totalIncome) {
-      if (totalIncome?.length == 0) {
-        setIncome(0)
-      } else {
-        setIncome(totalIncome?.reduce((a, b) => Number(a) + Number(b), 0))
-      }
-    }
     if (totalExpense) {
       if (totalExpense?.length == 0) {
         setExpense(0)
@@ -82,15 +67,8 @@ const HomeScreen = ({navigation}) => {
         setExpense(totalExpense?.reduce((a, b) => Number(a) + Number(b), 0))
       }
     }
-  }, [totalIncome, totalExpense, income, expense])
+  }, [totalExpense, expense])
 
-  useEffect(() => {
-    if (income || expense) {
-      setTotalBalance(income - expense)
-    } else {
-      setTotalBalance(0)
-    }
-  }, [totalIncome, totalExpense, income, expense])
 
   const [filter, setFilter] = useState([])
   useEffect(() => {
@@ -106,53 +84,24 @@ const HomeScreen = ({navigation}) => {
   return (
     <>
       <View style={styles.container}>
-        <StatusBar style='dark' />
-        <View style={styles.fullName}>
-          <Avatar
-            size='medium'
-            rounded
-            source={{
-              uri: auth?.currentUser?.photoURL,
-            }}
-          />
-          <View style={{marginLeft: 10}}>
-            <Text style={{fontWeight: 'bold'}}>Welcome</Text>
-            <Text h4 style={{color: '#4A2D5D'}}>
-              {auth.currentUser.displayName}
-            </Text>
-          </View>
-        </View>
         <View style={styles.card}>
           <View style={styles.cardTop}>
-            <Text style={{textAlign: 'center', color: 'aliceblue'}}>
-              Total Balance
-            </Text>
-            <Text h3 style={{textAlign: 'center', color: 'aliceblue'}}>
-              $ {totalBalance.toFixed(2)}
-            </Text>
+            <View style={styles.profile}>
+              <View style={{margin:5}}>
+                <Avatar size='large' rounded source={{ uri: auth?.currentUser?.photoURL, }} />
+              </ View>
+              <View style={{marginTop: 5}}>
+              <Text h4 style={{color: '#4A2D5D'}}>
+                {auth.currentUser.displayName}
+              </Text>
+            </View>
           </View>
+        </View>
           <View style={styles.cardBottom}>
             <View>
               <View style={styles.cardBottomSame}>
-                <Feather name='arrow-down' size={18} color='green' />
-                <Text
-                  style={{
-                    textAlign: 'center',
-                    marginLeft: 5,
-                  }}
-                >
-                  Income
-                </Text>
-              </View>
-              <Text h4 style={{textAlign: 'center'}}>
-                {`$ ${income?.toFixed(2)}`}
-              </Text>
-            </View>
-            <View>
-              <View style={styles.cardBottomSame}>
-                <Feather name='arrow-up' size={18} color='red' />
                 <Text style={{textAlign: 'center', marginLeft: 5}}>
-                  Expense
+                  Total Expense
                 </Text>
               </View>
               <Text h4 style={{textAlign: 'center'}}>
@@ -161,7 +110,7 @@ const HomeScreen = ({navigation}) => {
             </View>
           </View>
         </View>
-
+        
         <View style={styles.recentTitle}>
           <Text h4 style={{color: '#4A2D5D'}}>
             Recent Transactions
@@ -176,7 +125,7 @@ const HomeScreen = ({navigation}) => {
 
         {filter?.length > 0 ? (
           <View style={styles.recentTransactions}>
-            {filter?.slice(0, 3).map((info) => (
+            {filter?.slice(0, 5).map((info) => (
               <View key={info.id}>
                 <CustomListItem
                   info={info.data}
@@ -195,25 +144,35 @@ const HomeScreen = ({navigation}) => {
           </View>
         )}
       </View>
+
       <View style={styles.addButton}>
-        <TouchableOpacity
-          activeOpacity={0.5}
-          onPress={() => navigation.navigate('Home')}
-        >
-          <AntDesign name='home' size={24} color='#66AFBB' />
-        </TouchableOpacity>
+        {/*Budget Manager Button */}
+          <TouchableOpacity
+            style={styles.buttonContainer}
+            activeOpacity={0.5}
+            onPress={() => navigation.navigate('Home')}
+          >
+            <AntDesign name='home' size={24} color='#66AFBB' />
+            <Text style={{padding:3, fontWeight:'700', color:'#7D7D7D'}}>Budget</Text>
+          </TouchableOpacity>
+
+         {/*QR Scanner Button */}
         <TouchableOpacity
           style={styles.plusButton}
           onPress={() => navigation.navigate('Add')}
           activeOpacity={0.5}
         >
-          <AntDesign name='plus' size={24} color='white' />
+            <AntDesign name='qrcode' size={50} color='black' />   
         </TouchableOpacity>
+        
+        {/*Analytics Button */}
         <TouchableOpacity
+          style={styles.buttonContainer}
           activeOpacity={0.5}
           onPress={() => navigation.navigate('All')}
         >
           <FontAwesome5 name='list-alt' size={24} color='#EF8A76' />
+          <Text style={{padding:3, fontWeight:'700', color:'#7D7D7D'}}>Analytics</Text>
         </TouchableOpacity>
       </View>
     </>
@@ -230,21 +189,23 @@ const styles = StyleSheet.create({
     justifyContent: 'flex-start',
     padding: 10,
   },
-  fullName: {
-    flexDirection: 'row',
+  profile: {
+    flexDirection: 'column',
+    alignItems: 'center',
   },
   card: {
-    backgroundColor: '#535F93',
+    backgroundColor: '#90BE6D',
     alignItems: 'center',
     width: '100%',
-    padding: 10,
+    padding: 5,
     borderRadius: 10,
     shadowColor: '#000',
     shadowOffset: {width: 0, height: 2},
     shadowOpacity: 0.23,
     shadowRadius: 2.62,
     elevation: 4,
-    marginVertical: 20,
+    marginVertical: 5,
+    marginBottom: 15,
   },
   cardTop: {
     // backgroundColor: 'blue',
@@ -255,7 +216,7 @@ const styles = StyleSheet.create({
     justifyContent: 'space-evenly',
     width: '100%',
     margin: 'auto',
-    backgroundColor: '#E0D1EA',
+    backgroundColor: 'white',
     borderRadius: 5,
   },
   cardBottomSame: {
@@ -294,11 +255,14 @@ const styles = StyleSheet.create({
     },
     shadowOpacity: 0.58,
     shadowRadius: 16.0,
-
     elevation: 24,
   },
+  buttonContainer: {
+    flexDirection: 'column',
+    alignItems: 'center',
+  },
   plusButton: {
-    backgroundColor: '#535F93',
+    backgroundColor: 'white',
     padding: 10,
     borderRadius: 50,
     shadowColor: '#000',
