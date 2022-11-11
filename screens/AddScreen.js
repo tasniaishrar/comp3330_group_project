@@ -16,6 +16,10 @@ const AddScreen = ({navigation}) => {
   useLayoutEffect(() => {
     navigation.setOptions({
       title: 'Add Expense',
+      headerStyle: { 
+        backgroundColor: '#90BE6D',
+      },
+      headerTintColor: 'white',
     })
   }, [navigation])
   const [input, setInput] = useState('')

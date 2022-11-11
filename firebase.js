@@ -3,13 +3,13 @@ import * as firebase from "firebase";
 // https://firebase.google.com/docs/web/setup#available-libraries
 
 const firebaseConfig = {
-  apiKey: "AIzaSyABKZC4KoteoNfce26QMtB4HduZxJQDmhE",
-  authDomain: "comp3330-receiptify.firebaseapp.com",
-  projectId: "comp3330-receiptify",
-  storageBucket: "comp3330-receiptify.appspot.com",
-  messagingSenderId: "752762107216",
-  appId: "1:752762107216:web:a5982f72e6c5062d5a2855",
-  measurementId: "G-L7VW9S2E42"
+  apiKey: "AIzaSyDYlEW6EBRt1vojXNFe0Pln1Od5KeeMoJA",
+  authDomain: "comp3330-expense-tracker-demo.firebaseapp.com",
+  projectId: "comp3330-expense-tracker-demo",
+  storageBucket: "comp3330-expense-tracker-demo.appspot.com",
+  messagingSenderId: "1074905656423",
+  appId: "1:1074905656423:web:551bede14e64abc81ab8c2",
+  measurementId: "G-K3NE76286F"
 };
 
 // Initialize Firebase
