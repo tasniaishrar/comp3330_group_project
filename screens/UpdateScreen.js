@@ -1,13 +1,11 @@
-import {StatusBar} from 'expo-status-bar'
-import React, {useEffect, useLayoutEffect, useState} from 'react'
-import {StyleSheet, View, KeyboardAvoidingView, TextInput} from 'react-native'
-import {Text, Button} from 'react-native-elements'
 import DateTimePicker from '@react-native-community/datetimepicker'
 import format from 'date-fns/format'
-import {Picker} from '@react-native-picker/picker'
-import {db} from '../firebase'
-import firebase from 'firebase'
 import parse from 'date-fns/parse'
+import firebase from 'firebase'
+import React, { useEffect, useLayoutEffect, useState } from 'react'
+import { KeyboardAvoidingView, StyleSheet, TextInput, View } from 'react-native'
+import { Button, Text } from 'react-native-elements'
+import { db } from '../firebase'
 
 const UpdateScreen = ({route, navigation}) => {
   const [transactions, setTransactions] = useState([])
@@ -15,10 +13,16 @@ const UpdateScreen = ({route, navigation}) => {
   useLayoutEffect(() => {
     navigation.setOptions({
       title: 'Update Expense',
+      headerStyle:{
+        backgroundColor: '#90BE6e',
+      },
+      headerTintColor: 'white'
     })
   }, [navigation])
   const [input, setInput] = useState('')
-  const [amount, setAmount] = useState('')
+  const [price, setPrice] = useState('')
+  const [quantity, setQuantity] = useState('')
+  const [shop, setShop] = useState('')
   const [submitLoading, setSubmitLoading] = useState(false)
   useEffect(() => {
     const unsubscribe = db
@@ -26,26 +30,28 @@ const UpdateScreen = ({route, navigation}) => {
       .doc(itemId)
       .onSnapshot(
         (snapshot) =>
-          setInput(snapshot.data()?.text) &
-          setAmount(snapshot.data()?.price) &
+          setInput(snapshot.data()?.expenseObj) &
+          setPrice(snapshot.data()?.price) &
+          setQuantity(snapshot.data()?.quantity) &
+          setShop(snapshot.data()?.shop) &
           setSelDate(
             parse(snapshot.data()?.userDate, 'dd/MM/yyyy', new Date())
-          ) &
-          setSelectedLanguage(snapshot.data()?.type)
+          )
       )
     return unsubscribe
   }, [])
 
   const updateExpense = () => {
-    if (input && amount && selDate && selectedLanguage) {
+    if (input && price && quantity && shop && selDate) {
       setSubmitLoading(true)
       db.collection('expense')
         .doc(itemId)
         .update({
-          text: input,
-          price: amount,
+          expenseObj: input,
+          price: price,
+          quantity: quantity,
+          shop: shop,
           date: selDate,
-          type: selectedLanguage,
           timestamp: firebase.firestore.FieldValue.serverTimestamp(),
           userDate: result,
         })
@@ -60,9 +66,10 @@ const UpdateScreen = ({route, navigation}) => {
   const clearInputFields = () => {
     alert('Updated Successfully')
     setInput('')
-    setAmount('')
+    setPrice('')
+    setQuantity('')
+    setShop('')
     setSelDate(new Date())
-    setSelectedLanguage('expense')
     navigation.goBack()
     setSubmitLoading(false)
   }
@@ -86,19 +93,42 @@ const UpdateScreen = ({route, navigation}) => {
 
   const result = format(selDate, 'dd/MM/yyyy')
 
-  // Select Dropdown
-  const [selectedLanguage, setSelectedLanguage] = useState()
-
   return (
     <KeyboardAvoidingView behavior='padding' style={styles.container}>
-      <StatusBar style='dark' />
       <View style={styles.inputContainer}>
+        
+      <TextInput
+          style={styles.input}
+          placeholder='Add Shop'
+          value={shop}
+          // defaultValue={transactions.text}
+          onChangeText={(text) => setShop(text)}
+        />
+
         <TextInput
           style={styles.input}
-          placeholder='Add Text'
+          placeholder='Add Item'
           value={input}
           // defaultValue={transactions.text}
           onChangeText={(text) => setInput(text)}
+        />
+
+        <TextInput
+          style={styles.input}
+          keyboardType='numeric'
+          placeholder='Enter Price'
+          value={price}
+          onChangeText={(text) => setPrice(text)}
+          defaultValue={transactions.price}
+        />
+
+        <TextInput
+          style={styles.input}
+          keyboardType='numeric'
+          placeholder='Enter Quantity'
+          value={quantity}
+          onChangeText={(text) => setQuantity(text)}
+          defaultValue={transactions.price}
         />
 
         {show && (
@@ -113,15 +143,6 @@ const UpdateScreen = ({route, navigation}) => {
           />
         )}
 
-        <TextInput
-          style={styles.input}
-          keyboardType='numeric'
-          placeholder='Add Amount'
-          value={amount}
-          onChangeText={(text) => setAmount(text)}
-          defaultValue={transactions.price}
-        />
-
         <Text
           style={styles.input}
           placeholder='Select Date'
@@ -129,16 +150,6 @@ const UpdateScreen = ({route, navigation}) => {
         >
           {result ? result : new Date()}
         </Text>
-
-        <Picker
-          selectedValue={selectedLanguage}
-          onValueChange={(itemValue, itemIndex) =>
-            setSelectedLanguage(itemValue)
-          }
-        >
-          <Picker.Item label='Expense' value='expense' />
-          <Picker.Item label='Income' value='income' />
-        </Picker>
 
         <Button
           containerStyle={styles.button}
