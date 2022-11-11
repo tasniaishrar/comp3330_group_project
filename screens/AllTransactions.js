@@ -1,22 +1,27 @@
-import React, {useEffect, useLayoutEffect, useState} from 'react'
-import {ScrollView, StyleSheet, View} from 'react-native'
-import {SafeAreaView} from 'react-native-safe-area-context'
+import { FontAwesome5 } from '@expo/vector-icons'
+import React, { useEffect, useLayoutEffect, useState } from 'react'
+import { ScrollView, StyleSheet, View } from 'react-native'
+import { Text } from 'react-native-elements'
+import { SafeAreaView } from 'react-native-safe-area-context'
 import CustomListItem from '../components/CustomListItem'
-import {db, auth} from '../firebase'
-import {Text} from 'react-native-elements'
-import {FontAwesome5} from '@expo/vector-icons'
+import { auth, db } from '../firebase'
 
 const AllTransactions = ({navigation}) => {
   useLayoutEffect(() => {
     navigation.setOptions({
       title: 'All Transactions',
+      headerStyle: { 
+        backgroundColor: '#90BE6D',
+      },
+      headerTintColor: 'white'
     })
   }, [])
+  // Transaction Display
   const [transactions, setTransactions] = useState([])
   useEffect(() => {
     const unsubscribe = db
       .collection('expense')
-      .orderBy('timestamp', 'desc')
+      .orderBy('userDate', 'desc')
       .onSnapshot((snapshot) =>
         setTransactions(
           snapshot.docs.map((doc) => ({
