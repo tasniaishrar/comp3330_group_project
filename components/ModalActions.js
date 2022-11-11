@@ -1,17 +1,11 @@
+import { EvilIcons, FontAwesome, FontAwesome5 } from '@expo/vector-icons'
 import React from 'react'
 import {
-  Alert,
-  Modal,
-  StyleSheet,
-  Text,
-  Pressable,
-  View,
-  TouchableOpacity,
+  Alert, Modal, Pressable, StyleSheet, Text, TouchableOpacity, View
 } from 'react-native'
-import {FontAwesome, EvilIcons, FontAwesome5} from '@expo/vector-icons'
-import {db} from '../firebase'
+import { db } from '../firebase'
 
-const ModalActions = ({modalVisible, setModalVisible, navigation, id}) => {
+const ModalActions = ({info, modalVisible, setModalVisible, navigation, id}) => {
   const deleteExpense = () => {
     db.collection('expense')
       .doc(id)
@@ -19,10 +13,11 @@ const ModalActions = ({modalVisible, setModalVisible, navigation, id}) => {
       .then(() => alert('Deleted Successfully'))
       .catch((error) => alert(error.message))
   }
+
   return (
     <View style={styles.centeredView}>
       <Modal
-        animationType='slide'
+        animationType='none'
         transparent={true}
         visible={modalVisible}
         onRequestClose={() => {
@@ -34,13 +29,48 @@ const ModalActions = ({modalVisible, setModalVisible, navigation, id}) => {
           <View style={styles.modalView}>
             <View style={styles.closeIcon}>
               <Pressable
-                style={[styles.buttonClose]}
+                style={[styles.buttonCloise]}
                 onPress={() => setModalVisible(!modalVisible)}
               >
                 <FontAwesome5 name='times-circle' size={24} color='black' />
               </Pressable>
             </View>
-            <View style={styles.handleIcons}>
+
+            <View>
+              <Text style={{fontWeight: 'bold', textAlign: 'center', fontSize: 20, marginBottom: 10}}>
+                {info?.shop}
+              </Text>
+              <View style={{ flexDirection: 'row', paddingBottom:5}}>
+                <View style={{ flex: 1 }}>
+                  <Text>{info?.userDate}</Text>
+                  <Text style={{fontWeight: 'bold', paddingBottom:20 }}>
+                    {info?.expenseObj} 
+                  </Text>
+                </View>
+
+                <View style={{ flex: 1, alignItems: 'center' }}>
+                  <Text>Quantity</Text>
+                  <Text>
+                    X{info?.quantity}
+                  </Text>
+                </View>
+                
+                <View style={{ flex: 1, alignItems: 'center' }}>
+                  <Text>Price</Text>
+                  <Text>
+                    HK${info?.price}
+                  </Text>
+                </View>
+              </View>
+            </View>
+
+            <View>
+              <Text style={{textAlign: 'center', fontSize: 16, marginBottom: 30}}>
+                Total Price HK${ }
+              </Text>
+            </View>
+
+            <View style={styles.handleIcons}>              
               <TouchableOpacity activeOpacity={0.5} style={styles.pencil}>
                 <EvilIcons
                   name='pencil'
@@ -80,14 +110,13 @@ const styles = StyleSheet.create({
   trash: {
     backgroundColor: 'aliceblue',
     borderRadius: 10,
-    // padding: 8,
     paddingVertical: 8,
     paddingHorizontal: 15
   },
   closeIcon: {
     position: 'absolute',
-    top: 0,
-    right: 0,
+    top: 6,
+    right: 6,
   },
   handleIcons: {
     flexDirection: 'row',
@@ -106,7 +135,6 @@ const styles = StyleSheet.create({
     backgroundColor: 'white',
     borderRadius: 20,
     padding: 35,
-    alignItems: 'center',
     shadowColor: '#000',
     shadowOffset: {
       width: 0,
@@ -115,7 +143,7 @@ const styles = StyleSheet.create({
     shadowOpacity: 0.25,
     shadowRadius: 4,
     elevation: 5,
-  },
+  }, 
   button: {
     borderRadius: 20,
     padding: 10,
@@ -135,7 +163,19 @@ const styles = StyleSheet.create({
     textAlign: 'center',
   },
   modalText: {
-    marginBottom: 15,
+    marginBottom: 10,
     textAlign: 'center',
   },
+  col1: {
+    flex:1,
+    padding: 10,
+  },
+  col2: {
+    flex:1,
+    fontWeight: 'bold',
+    color: 'black',
+  },
+  col3: {
+    flex:1,
+  }
 })
