@@ -5,6 +5,7 @@ import { Avatar, Text } from 'react-native-elements'
 import CustomListItem from '../components/CustomListItem'
 import { auth, db } from '../firebase'
 
+
 const HomeScreen = ({navigation}) => {
   const signOutUser = () => {
     auth
@@ -159,7 +160,7 @@ const HomeScreen = ({navigation}) => {
          {/*QR Scanner Button */}
         <TouchableOpacity
           style={styles.plusButton}
-          onPress={() => navigation.navigate('Add')}
+          onPress={() => navigation.navigate('Scan')}
           activeOpacity={0.5}
         >
             <AntDesign name='qrcode' size={50} color='black' />   
