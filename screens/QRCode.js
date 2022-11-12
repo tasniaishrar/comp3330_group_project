@@ -7,12 +7,6 @@ export default function QRScanner({navigation}) {
   const [hasPermission, setHasPermission] = useState(null);
   const [scanned, setScanned] = useState(false);
 
-  const [date, setDate] = useState('')
-  const [shop, setShop] = useState('')
-  const [item, setItem] = useState('')
-  const [price, setPrice] = useState('')
-  const [quantity, setQuantity] = useState('')
-  
 
   useEffect(() => {
     (async () => {
@@ -23,8 +17,34 @@ export default function QRScanner({navigation}) {
 
   const handleBarCodeScanned = ({ type, data }) => {
     setScanned(true);
-    alert(`${data}`);
+    console.log(data.shop)
+    //sendData(data.date, data.shop, data.expenseObj, data.price, data.quantity);
+    alert(
+      'Scan Successful!',
+      JSON.stringify(data)
+    );
   };
+
+  // const [date, setDate] = useState('')
+  // const [shop, setShop] = useState('')
+  // const [expenseObj, setItem] = useState('')
+  // const [price, setPrice] = useState('')
+  // const [quantity, setQuantity] = useState('')
+
+  const sendData = (date, shop, expenseObj, price, quantity) => {
+      db.collection('expense')
+        .add({
+          email: auth.currentUser.email,
+          expenseObj: expenseObj,
+          price: price,
+          quantity: quantity,
+          date: date,
+          shop: shop,
+          timestamp: date,
+          userDate: date,
+        })
+        .catch((error) => alert(error.message))
+   }
 
   if (hasPermission === null) {
     return <Text>Requesting for camera permission</Text>;
