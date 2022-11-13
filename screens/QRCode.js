@@ -17,19 +17,14 @@ export default function QRScanner({navigation}) {
 
   const handleBarCodeScanned = ({ type, data }) => {
     setScanned(true);
-    console.log(data.shop)
-    //sendData(data.date, data.shop, data.expenseObj, data.price, data.quantity);
+    object = JSON.parse(data)
+    sendData(object.date, object.shop, object.expenseObj, object.price, object.quantity);
     alert(
       'Scan Successful!',
-      JSON.stringify(data)
     );
+    navigation.navigate('All');
   };
 
-  // const [date, setDate] = useState('')
-  // const [shop, setShop] = useState('')
-  // const [expenseObj, setItem] = useState('')
-  // const [price, setPrice] = useState('')
-  // const [quantity, setQuantity] = useState('')
 
   const sendData = (date, shop, expenseObj, price, quantity) => {
       db.collection('expense')
@@ -59,7 +54,7 @@ export default function QRScanner({navigation}) {
         onBarCodeScanned={scanned ? undefined : handleBarCodeScanned}
         style={StyleSheet.absoluteFillObject}
       />
-      {scanned && <Button title ="Details" onPress={() => navigation.navigate('All')}/> }
+      {/* {scanned && <Button title ="Details" onPress={() => navigation.navigate('All')}/> } */}
     </View>
   );
 }
