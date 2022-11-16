@@ -15,7 +15,7 @@ const HomeScreen = ({navigation}) => {
   }
   useLayoutEffect(() => {
     navigation.setOptions({
-      title: 'RECEIPIFY',
+      title: 'RECEIPTIFY',
       headerStyle: { 
         backgroundColor: '#90BE6D',
       },
