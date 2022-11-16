@@ -151,10 +151,10 @@ const HomeScreen = ({navigation}) => {
           <TouchableOpacity
             style={styles.buttonContainer}
             activeOpacity={0.5}
-            onPress={() => navigation.navigate('Budget')}
+            onPress={() => navigation.navigate('Home')}
           >
-            <AntDesign name='calculator' size={24} color='#66AFBB' />
-            <Text style={{padding:3, fontWeight:'700', color:'#7D7D7D'}}>Budget</Text>
+            <AntDesign name='home' size={24} color='#66AFBB' />
+            <Text style={{padding:3, fontWeight:'700', color:'#7D7D7D'}}>Home</Text>
           </TouchableOpacity>
 
          {/*QR Scanner Button */}
@@ -170,10 +170,10 @@ const HomeScreen = ({navigation}) => {
         <TouchableOpacity
           style={styles.buttonContainer}
           activeOpacity={0.5}
-          onPress={() => navigation.navigate('All')}
+          onPress={() => navigation.navigate('Budget')}
         >
-          <MaterialIcons name='analytics' size={24} color='#EF8A76' />
-          <Text style={{padding:3, fontWeight:'700', color:'#7D7D7D'}}>Analytics</Text>
+          <AntDesign name='calculator' size={24} color='#66AFBB' />
+          <Text style={{padding:3, fontWeight:'700', color:'#7D7D7D'}}>Budget</Text>
         </TouchableOpacity>
       </View>
     </>

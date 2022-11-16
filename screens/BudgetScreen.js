@@ -92,7 +92,7 @@ const BudgetScreen = ({navigation}) => {
             <View>
               <View style={styles.cardBottomSame}>
               <CircularProgress
-                value={$3000}
+                value={"$3000"}
                 radius={120}
                 progressValueColor={'#ecf0f1'}
                 maxValue={4300}
