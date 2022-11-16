@@ -1,4 +1,4 @@
-import { AntDesign, FontAwesome5 } from '@expo/vector-icons'
+import { AntDesign, FontAwesome5, MaterialIcons } from '@expo/vector-icons'
 import React, { useEffect, useLayoutEffect, useState } from 'react'
 import { StyleSheet, TouchableOpacity, View } from 'react-native'
 import { Avatar, Text } from 'react-native-elements'
@@ -151,10 +151,10 @@ const HomeScreen = ({navigation}) => {
           <TouchableOpacity
             style={styles.buttonContainer}
             activeOpacity={0.5}
-            onPress={() => navigation.navigate('Home')}
+            onPress={() => navigation.navigate('Budget')}
           >
-            <AntDesign name='home' size={24} color='#66AFBB' />
-            <Text style={{padding:3, fontWeight:'700', color:'#7D7D7D'}}>Home</Text>
+            <AntDesign name='calculator' size={24} color='#66AFBB' />
+            <Text style={{padding:3, fontWeight:'700', color:'#7D7D7D'}}>Budget</Text>
           </TouchableOpacity>
 
          {/*QR Scanner Button */}
@@ -172,8 +172,8 @@ const HomeScreen = ({navigation}) => {
           activeOpacity={0.5}
           onPress={() => navigation.navigate('All')}
         >
-          <FontAwesome5 name='list-alt' size={24} color='#EF8A76' />
-          <Text style={{padding:3, fontWeight:'700', color:'#7D7D7D'}}>Budget</Text>
+          <MaterialIcons name='analytics' size={24} color='#EF8A76' />
+          <Text style={{padding:3, fontWeight:'700', color:'#7D7D7D'}}>Analytics</Text>
         </TouchableOpacity>
       </View>
     </>

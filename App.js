@@ -14,6 +14,7 @@ import AllTransactions from './screens/AllTransactions'
 import QRCode from './screens/QRCode'
 import TransactionDetails from './screens/TransactionDetails'
 import ProfilePicScreen from './screens/ProfilePicScreen'
+import BudgetScreen from './screens/BudgetScreen'
 
 
 const Stack = createStackNavigator()
@@ -41,6 +42,7 @@ export default function App() {
         <Stack.Screen name='All' component={AllTransactions} />
         <Stack.Screen name = 'Scan' component={QRCode}/>
         <Stack.Screen name='Pic' component={ProfilePicScreen}/>
+        <Stack.Screen name='Budget' component={BudgetScreen}/>
         {/* <Stack.Screen name = 'Details' component={TransactionDetails}/> */}
       </Stack.Navigator>
     </NavigationContainer>
