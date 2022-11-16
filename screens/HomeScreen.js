@@ -154,7 +154,7 @@ const HomeScreen = ({navigation}) => {
             onPress={() => navigation.navigate('Home')}
           >
             <AntDesign name='home' size={24} color='#66AFBB' />
-            <Text style={{padding:3, fontWeight:'700', color:'#7D7D7D'}}>Budget</Text>
+            <Text style={{padding:3, fontWeight:'700', color:'#7D7D7D'}}>Home</Text>
           </TouchableOpacity>
 
          {/*QR Scanner Button */}
@@ -173,7 +173,7 @@ const HomeScreen = ({navigation}) => {
           onPress={() => navigation.navigate('All')}
         >
           <FontAwesome5 name='list-alt' size={24} color='#EF8A76' />
-          <Text style={{padding:3, fontWeight:'700', color:'#7D7D7D'}}>Analytics</Text>
+          <Text style={{padding:3, fontWeight:'700', color:'#7D7D7D'}}>Budget</Text>
         </TouchableOpacity>
       </View>
     </>
