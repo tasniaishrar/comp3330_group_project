@@ -13,6 +13,7 @@ import UpdateScreen from './screens/UpdateScreen'
 import AllTransactions from './screens/AllTransactions'
 import QRCode from './screens/QRCode'
 import TransactionDetails from './screens/TransactionDetails'
+import ProfilePicScreen from './screens/ProfilePicScreen'
 
 
 const Stack = createStackNavigator()
@@ -20,7 +21,7 @@ const Stack = createStackNavigator()
 export default function App() {
   const globalScreenOptions = {
     headerStyle: {
-      backgroundColor: '#DDD5F1',
+      backgroundColor: '#97B973',
       // backgroundColor: '#51A3B1',
     },
     headerTitleStyle: {
@@ -39,6 +40,7 @@ export default function App() {
         <Stack.Screen name='Update' component={UpdateScreen} />
         <Stack.Screen name='All' component={AllTransactions} />
         <Stack.Screen name = 'Scan' component={QRCode}/>
+        <Stack.Screen name='Pic' component={ProfilePicScreen}/>
         {/* <Stack.Screen name = 'Details' component={TransactionDetails}/> */}
       </Stack.Navigator>
     </NavigationContainer>

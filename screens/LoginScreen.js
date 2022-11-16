@@ -3,6 +3,8 @@ import {StyleSheet, View, KeyboardAvoidingView} from 'react-native'
 import {Input, Button, Image, Text} from 'react-native-elements'
 import {StatusBar} from 'expo-status-bar'
 import {auth} from '../firebase'
+import logo from '../assets/splash.png'
+
 
 const LoginScreen = ({navigation}) => {
   const [email, setEmail] = useState('')
@@ -58,11 +60,8 @@ const LoginScreen = ({navigation}) => {
         <KeyboardAvoidingView behavior='padding' style={styles.container}>
           <StatusBar style='light' />
           <Image
-            source={{
-              uri:
-                'https://static-s.aa-cdn.net/img/gp/20600011886807/to-aGJ31KLwqc9AWaBUyL6NLbpFwN9VEliX7nQ_AU48aO4jH6M1MltWKmThWJPndJg=s300?v=1',
-            }}
-            style={{width: 100, height: 100, marginBottom: 50}}
+            source={logo}
+            style={{width: 300, height: 300, marginBottom: 50}}
           />
           <View style={styles.inputContainer}>
             <Input
@@ -98,10 +97,7 @@ const LoginScreen = ({navigation}) => {
         <View style={styles.container}>
           <StatusBar style='light' />
           <Image
-            source={{
-              uri:
-                'https://static-s.aa-cdn.net/img/gp/20600011886807/to-aGJ31KLwqc9AWaBUyL6NLbpFwN9VEliX7nQ_AU48aO4jH6M1MltWKmThWJPndJg=s300?v=1',
-            }}
+            source={logo}
             style={{width: 100, height: 100, marginBottom: 50}}
           />
           <Text h4>Loading...</Text>
@@ -118,7 +114,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
     padding: 10,
-    backgroundColor: 'white',
+    backgroundColor: '#FAFAFA',
   },
   inputContainer: {
     width: 300,
@@ -126,5 +122,7 @@ const styles = StyleSheet.create({
   button: {
     width: 300,
     marginTop: 10,
+    color: '#000000',
+    backgroundColor: '#97B973'
   },
 })

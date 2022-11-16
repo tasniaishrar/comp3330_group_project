@@ -3,6 +3,37 @@ import React, {useLayoutEffect, useState} from 'react'
 import {StyleSheet, View, KeyboardAvoidingView} from 'react-native'
 import {Input, Button, Text, Image} from 'react-native-elements'
 import {auth} from '../firebase'
+import logo from '../assets/splash.png'
+import * as ImagePicker from 'expo-image-picker'
+
+// function Photo({navigation}) {
+//   const[image, setImage] = useState('');
+//   useEffect(() => {
+//     enableAccess();
+//   }, []);
+
+//   const enableAccess= async () => {
+//     const {granted} = await ImagePicker.requestMediaLibraryPermissionsAsync();
+  
+//     if (!granted) alert('Please allow access to your photo album');
+//   };
+
+//   const chooseImage = async () => {
+//     try {
+//       const data = await ImagePicker.launchImageLibraryAsyncy({
+//         mediaTypes: ImagePicker.MediaTypeOptions.Images,
+//         quality: 0.5,
+//       })
+//       console.log(data.uri);
+      
+//       if (!data.cancelled) setImage(data.uri);
+//     } catch (error) {
+//       console. log( 'Error', error);
+//     }
+//   };
+//   return(
+//   );
+// }
 
 const RegisterScreen = ({navigation}) => {
   const [fullName, setFullName] = useState('')
@@ -50,10 +81,7 @@ const RegisterScreen = ({navigation}) => {
     <KeyboardAvoidingView behavior='padding' style={styles.container}>
       <StatusBar style='light' />
       <Image
-        source={{
-          uri:
-            'https://static-s.aa-cdn.net/img/gp/20600011886807/to-aGJ31KLwqc9AWaBUyL6NLbpFwN9VEliX7nQ_AU48aO4jH6M1MltWKmThWJPndJg=s300?v=1',
-        }}
+        source={logo}
         style={{width: 100, height: 100, marginBottom: 20}}
       />
       <Text h4 style={{marginBottom: 50}}>
@@ -82,17 +110,32 @@ const RegisterScreen = ({navigation}) => {
           secureTextEntry
           onChangeText={(text) => setPassword(text)}
         />
-        <Input
+        {/* <View style={styles.screen}>
+          <View style= {styles.imageContainer}>
+              {image.length >0 && (
+                <Image source={{uri: image}} style = {styles.image} />
+              )}
+            <Button title="Choose Image" onpress={chooseImage}/>
+          </View>
+        </View> */}
+        <Button
+            onPress={() => navigation.navigate('Pic')}
+            containerStyle={styles.button}
+            title='Choose Profile Picture (Optional)'
+        />
+
+        {/* <Input
           placeholder='Profile Picture Url (Optional)'
           type='text'
          
           value={imageUrl}
           onChangeText={(text) => setImageUrl(text)}
           onSubmitEditing={signUp}
-        />
+        /> */}
       </View>
       <Button
         containerStyle={styles.button}
+        type='outline'
         title='Register'
         onPress={signUp}
         loading={submitLoading}
@@ -109,7 +152,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
     padding: 10,
-    backgroundColor: 'white',
+    backgroundColor: '#FAFAFA',
   },
   inputContainer: {
     width: 300,
@@ -117,5 +160,6 @@ const styles = StyleSheet.create({
   button: {
     width: 300,
     marginTop: 10,
+    backgroundColor:'#97B973',
   },
 })
