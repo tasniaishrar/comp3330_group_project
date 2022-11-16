@@ -135,7 +135,6 @@ const RegisterScreen = ({navigation}) => {
       </View>
       <Button
         containerStyle={styles.button}
-        type='outline'
         title='Register'
         onPress={signUp}
         loading={submitLoading}
