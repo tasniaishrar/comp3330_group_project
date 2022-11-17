@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useLayoutEffect } from 'react';
 import { Text, View, StyleSheet, Button, TouchableOpacity } from 'react-native';
 import { BarCodeScanner } from 'expo-barcode-scanner';
 import { auth, db } from '../firebase'
@@ -7,6 +7,16 @@ export default function QRScanner({navigation}) {
   const [hasPermission, setHasPermission] = useState(null);
   const [scanned, setScanned] = useState(false);
 
+  useLayoutEffect(() => {
+    navigation.setOptions({
+      title: 'All Transactions',
+      headerStyle: { 
+        backgroundColor: '#90BE6D',
+      },
+      headerTintColor: 'white',
+      headerBackTitle: 'Back'
+    })
+  });
 
   useEffect(() => {
     (async () => {
@@ -18,6 +28,19 @@ export default function QRScanner({navigation}) {
   const handleBarCodeScanned = ({ type, data }) => {
     setScanned(true);
     object = JSON.parse(data)
+    obj2 = JSON.stringify(data)
+    if(obj2.date === null || obj2.shop=== null || obj2.expenseObj=== null|| 
+      obj2.price=== null || obj2.quantity === null){
+        alert('Incorrect barcode. Scan again!');
+        navigation.navigate('Scan');
+      }
+    else{
+        sendData(object.date, object.shop, object.expenseObj, object.price, object.quantity);
+      alert(
+        'Scan Successful!',
+      );
+      navigation.navigate('All');
+    }
     sendData(object.date, object.shop, object.expenseObj, object.price, object.quantity);
     alert(
       'Scan Successful!',

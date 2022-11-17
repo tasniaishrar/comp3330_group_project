@@ -1,6 +1,6 @@
 import { AntDesign, FontAwesome5, MaterialIcons } from '@expo/vector-icons'
 import React, { useEffect, useLayoutEffect, useState } from 'react'
-import { StyleSheet, TouchableOpacity, View } from 'react-native'
+import { StyleSheet, TouchableOpacity, View, ScrollView } from 'react-native'
 import { Avatar, Text } from 'react-native-elements'
 import CustomListItem from '../components/CustomListItem'
 import { auth, db } from '../firebase'
@@ -125,7 +125,7 @@ const HomeScreen = ({navigation}) => {
         </View>
 
         {filter?.length > 0 ? (
-          <View style={styles.recentTransactions}>
+          <ScrollView style={styles.recentTransactions}>
             {filter?.slice(0, 5).map((info) => (
               <View key={info.id}>
                 <CustomListItem
@@ -135,7 +135,7 @@ const HomeScreen = ({navigation}) => {
                 />
               </View>
             ))}
-          </View>
+          </ScrollView>
         ) : (
           <View style={styles.containerNull}>
             <FontAwesome5 name='list-alt' size={24} color='#EF8A76' />
@@ -147,8 +147,8 @@ const HomeScreen = ({navigation}) => {
       </View>
 
       <View style={styles.addButton}>
-        {/*Budget Manager Button */}
-          <TouchableOpacity
+        {/*Home Button */}
+          <TouchableOpacity disabled={true}
             style={styles.buttonContainer}
             activeOpacity={0.5}
             onPress={() => navigation.navigate('Home')}
@@ -166,13 +166,13 @@ const HomeScreen = ({navigation}) => {
             <AntDesign name='qrcode' size={50} color='black' />   
         </TouchableOpacity>
         
-        {/*Analytics Button */}
+        {/*Budget Button */}
         <TouchableOpacity
           style={styles.buttonContainer}
           activeOpacity={0.5}
           onPress={() => navigation.navigate('Budget')}
         >
-          <AntDesign name='calculator' size={24} color='#66AFBB' />
+          <AntDesign name='calculator' size={24} color='#EF8A76' />
           <Text style={{padding:3, fontWeight:'700', color:'#7D7D7D'}}>Budget</Text>
         </TouchableOpacity>
       </View>

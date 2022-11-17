@@ -13,9 +13,11 @@ const AllTransactions = ({navigation}) => {
       headerStyle: { 
         backgroundColor: '#90BE6D',
       },
-      headerTintColor: 'white'
+      headerTintColor: 'white',
+      headerBackTitle: 'Back'
     })
   }, [])
+  
   // Transaction Display
   const [transactions, setTransactions] = useState([])
   useEffect(() => {

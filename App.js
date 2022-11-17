@@ -12,7 +12,7 @@ import AddScreen from './screens/AddScreen'
 import UpdateScreen from './screens/UpdateScreen'
 import AllTransactions from './screens/AllTransactions'
 import QRCode from './screens/QRCode'
-import TransactionDetails from './screens/TransactionDetails'
+import SetBudgetLimit from './screens/SetBudgetLimit'
 import ProfilePicScreen from './screens/ProfilePicScreen'
 import BudgetScreen from './screens/BudgetScreen'
 
@@ -43,7 +43,7 @@ export default function App() {
         <Stack.Screen name = 'Scan' component={QRCode}/>
         <Stack.Screen name='Pic' component={ProfilePicScreen}/>
         <Stack.Screen name='Budget' component={BudgetScreen}/>
-        {/* <Stack.Screen name = 'Details' component={TransactionDetails}/> */}
+        <Stack.Screen name = 'SetLimit' component={SetBudgetLimit}/>
       </Stack.Navigator>
     </NavigationContainer>
   )

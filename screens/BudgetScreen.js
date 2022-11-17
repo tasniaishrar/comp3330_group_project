@@ -6,9 +6,6 @@ import { Avatar, Text } from 'react-native-elements'
 import CustomListItem from '../components/CustomListItem'
 import { auth, db } from '../firebase'
 
-//hi @anishka, just add the buttons under return function
-//i didnt touch any of the code in transactions section, just changed return
-//sid
 
 const BudgetScreen = ({navigation}) => {
   useLayoutEffect(() => {
@@ -22,7 +19,7 @@ const BudgetScreen = ({navigation}) => {
   }, [navigation])
   useLayoutEffect(() => {
     navigation.setOptions({
-      headerBackTitle: 'Back to Register',
+      headerBackTitle: 'Back',
     })
   }, [navigation])
 
@@ -104,43 +101,24 @@ const BudgetScreen = ({navigation}) => {
             </View>
           </View>
         </View>
-        
-        <View style={styles.recentTitle}>
-          <Text h4 style={{color: '#4A2D5D'}}>
-            Recent Transactions
-          </Text>
-          <TouchableOpacity
-            activeOpacity={0.5}
-            onPress={() => navigation.navigate('All')}
-          >
-            <Text style={styles.seeAll}>See All</Text>
+
+        <View>
+          <TouchableOpacity activeOpacity={.5} style={styles.buttonStyle} onPress={() => navigation.navigate('SetLimit')}>
+            <Text style={styles.textStyle}>Set Budget Limit</Text>
+          </TouchableOpacity>
+          <TouchableOpacity activeOpacity={.5} style={styles.buttonStyle}
+            onPress={() => navigation.navigate('Add')}>
+            <Text style={styles.textStyle}>Add Expense</Text>
+          </TouchableOpacity>
+          <TouchableOpacity activeOpacity={.5} style={styles.buttonStyle}
+            onPress={() => navigation.navigate('All')}>
+            <Text style={styles.textStyle}>All Transactions</Text>
           </TouchableOpacity>
         </View>
-
-        {filter?.length > 0 ? (
-          <View style={styles.recentTransactions}>
-            {filter?.slice(0, 5).map((info) => (
-              <View key={info.id}>
-                <CustomListItem
-                  info={info.data}
-                  navigation={navigation}
-                  id={info.id}
-                />
-              </View>
-            ))}
-          </View>
-        ) : (
-          <View style={styles.containerNull}>
-            <FontAwesome5 name='list-alt' size={24} color='#EF8A76' />
-            <Text h4 style={{color: '#4A2D5D'}}>
-              No Transactions
-            </Text>
-          </View>
-        )}
       </View>
 
       <View style={styles.addButton}>
-        {/*Budget Manager Button */}
+        {/*Home Button */}
           <TouchableOpacity
             style={styles.buttonContainer}
             activeOpacity={0.5}
@@ -159,14 +137,14 @@ const BudgetScreen = ({navigation}) => {
             <AntDesign name='qrcode' size={50} color='black' />   
         </TouchableOpacity>
         
-        {/*Analytics Button */}
-        <TouchableOpacity
+        {/*Budget Button */}
+        <TouchableOpacity disabled={true}
           style={styles.buttonContainer}
           activeOpacity={0.5}
           onPress={() => navigation.navigate('All')}
         >
-          <MaterialIcons name='analytics' size={24} color='#EF8A76' />
-          <Text style={{padding:3, fontWeight:'700', color:'#7D7D7D'}}>Analytics</Text>
+          <AntDesign name='calculator' size={24} color='#EF8A76' />
+          <Text style={{padding:3, fontWeight:'700', color:'#7D7D7D'}}>Budget</Text>
         </TouchableOpacity>
       </View>
     </>
@@ -237,6 +215,7 @@ const styles = StyleSheet.create({
     position: 'absolute',
     bottom: 0,
     padding: 10,
+    alignSelf: 'center',
     backgroundColor: 'white',
     flexDirection: 'row',
     justifyContent: 'space-around',
@@ -274,4 +253,23 @@ const styles = StyleSheet.create({
     flex: 1,
     width: '100%',
   },
+
+  buttonStyle: {
+    marginTop: 25,
+    display: "flex",
+    justifyContent: "center",
+    alignItems: 'center',
+    alignSelf: 'center',
+    borderRadius: 10,
+    padding: 14,
+    backgroundColor: '#97B973',
+    borderRadius: 6,
+  },
+
+  textStyle: {
+    color: 'white',
+    textAlign: 'center',
+    fontSize: 16,
+  },
+  
 })
