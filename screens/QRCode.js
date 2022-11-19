@@ -28,24 +28,18 @@ export default function QRScanner({navigation}) {
   const handleBarCodeScanned = ({ type, data }) => {
     setScanned(true);
     object = JSON.parse(data)
-    obj2 = JSON.stringify(data)
-    if(obj2.date === null || obj2.shop=== null || obj2.expenseObj=== null|| 
-      obj2.price=== null || obj2.quantity === null){
-        alert('Incorrect barcode. Scan again!');
-        navigation.navigate('Scan');
-      }
-    else{
-        sendData(object.date, object.shop, object.expenseObj, object.price, object.quantity);
+    if(object.date === '' || object.shop=== '' || object.expenseObj=== ''|| 
+        object.price=== '' || object.quantity === ''){
+      alert('Incorrect barcode. Scan again!');
+      navigation.navigate('Scan');
+    }
+    else{  
+      sendData(object.date, object.shop, object.expenseObj, object.price, object.quantity);
       alert(
         'Scan Successful!',
       );
       navigation.navigate('All');
     }
-    sendData(object.date, object.shop, object.expenseObj, object.price, object.quantity);
-    alert(
-      'Scan Successful!',
-    );
-    navigation.navigate('All');
   };
 
 

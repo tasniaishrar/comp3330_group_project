@@ -21,9 +21,9 @@ const HomeScreen = ({navigation}) => {
       },
       headerTintColor: 'white',
       headerRight: () => (
-        <View style={{marginRight: 20}}>
+        <View style={{marginRight: 20, alignItems: "center"}}>
           <TouchableOpacity activeOpacity={0.5} onPress={signOutUser}>
-            <Text style={{fontWeight: 'bold', color: 'white'}}>Logout</Text>
+            <Text style={{fontSize: 15, color: 'white'}}>Logout</Text>
           </TouchableOpacity>
         </View>
       ),

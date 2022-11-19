@@ -19,6 +19,8 @@ const AddScreen = ({navigation}) => {
       headerStyle: { 
         backgroundColor: '#90BE6D',
       },
+      headerBackTitle: 'Back',
+      headerTintColor: 'white',
     })
   }, [navigation])
   

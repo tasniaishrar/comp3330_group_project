@@ -12,6 +12,7 @@ const SetBudgetLimit = ({ navigation }) => {
         backgroundColor: '#90BE6D',
       },
       headerTintColor: 'white',
+      headerBackTitle: 'Back'
     })
   }, [navigation])
   useLayoutEffect(() => {
@@ -33,13 +34,13 @@ const SetBudgetLimit = ({ navigation }) => {
           .catch((error) => alert(error.message))
     }
     else {
-      alert('Please fill in the Bedget field')
+      alert('Please fill in the Budget field')
       setSubmitLoading(false)
     }
   }
   
   const clearInputFields = () => {
-    alert('Added Successfully')
+    alert('Budget set!')
     setBudget('')
     navigation.navigate('Budget')
     setSubmitLoading(false)

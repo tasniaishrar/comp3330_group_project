@@ -1,6 +1,6 @@
-import { FontAwesome5 } from '@expo/vector-icons'
+import { FontAwesome5, AntDesign } from '@expo/vector-icons'
 import React, { useEffect, useLayoutEffect, useState } from 'react'
-import { ScrollView, StyleSheet, View } from 'react-native'
+import { ScrollView, StyleSheet, View, TouchableOpacity } from 'react-native'
 import { Text } from 'react-native-elements'
 import { SafeAreaView } from 'react-native-safe-area-context'
 import CustomListItem from '../components/CustomListItem'
@@ -14,7 +14,15 @@ const AllTransactions = ({navigation}) => {
         backgroundColor: '#90BE6D',
       },
       headerTintColor: 'white',
-      headerBackTitle: 'Back'
+      //headerBackTitle: 'Back',
+      headerLeft: () => (
+        <View style={{marginLeft: 10, flexDirection: "row", alignItems: 'center'}}>
+          <AntDesign name='left' size={24} color='#FFFFFF' />
+          <TouchableOpacity activeOpacity={0.5} onPress={() => navigation.navigate('Home')}>
+            <Text style={{color: 'white', fontSize: 18}}>Back</Text>
+          </TouchableOpacity>
+        </View>
+      ),
     })
   }, [])
   

@@ -76,33 +76,50 @@ const BudgetScreen = ({navigation}) => {
     }
   }, [transactions])
 
+  //budget progress
+  // const [budget, setBudget] = useState('')
+  // const value = () => {
+  //   useEffect(()=>{
+  //     const unsubscribe =db
+  //     .collection('budget')
+  //     .onSnapshot(snapshot) =>
+  //     setBudget(
+  //       snapshot.docs.map((doc) => ({
+  //         id: doc.id,
+  //         data: doc.data(),
+  //       }))
+  //     )
+  //   })
+  // }
+
   return (
     <>
       <View style={styles.container}>
         <View style={styles.card}>
           <View style={styles.cardTop}>
              <Text h3 style={{textAlign: 'center', marginLeft: 5, }}>
-                  Balance
+                  BALANCE
             </Text>
         </View>
           <View style={styles.cardBottom}>
             <View>
               <View style={styles.cardBottomSame}>
               <CircularProgress
-                value={"$3000"}
+                value={3000}
+                valuePrefix = {'$'}
                 radius={120}
-                progressValueColor={'#ecf0f1'}
+                progressValueColor={'#7e7d7d'}
                 maxValue={4300}
                 title={'70% Spent'}
-                titleColor={'white'}
-                titleStyle={{fontWeight: 'bold'}}
+                titleColor={'#bcbcbc'}
+                titleStyle={{fontWeight: 'bold', fontSize: 20}}
                 />
               </View>
             </View>
           </View>
         </View>
 
-        <View>
+        <View style ={{alignSelf: "center"}}>
           <TouchableOpacity activeOpacity={.5} style={styles.buttonStyle} onPress={() => navigation.navigate('SetLimit')}>
             <Text style={styles.textStyle}>Set Budget Limit</Text>
           </TouchableOpacity>
@@ -112,7 +129,7 @@ const BudgetScreen = ({navigation}) => {
           </TouchableOpacity>
           <TouchableOpacity activeOpacity={.5} style={styles.buttonStyle}
             onPress={() => navigation.navigate('All')}>
-            <Text style={styles.textStyle}>All Transactions</Text>
+            <Text style={styles.textStyle}>View All Transactions</Text>
           </TouchableOpacity>
         </View>
       </View>

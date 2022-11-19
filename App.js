@@ -15,6 +15,7 @@ import QRCode from './screens/QRCode'
 import SetBudgetLimit from './screens/SetBudgetLimit'
 import ProfilePicScreen from './screens/ProfilePicScreen'
 import BudgetScreen from './screens/BudgetScreen'
+import { Button } from 'react-native-elements'
 
 
 const Stack = createStackNavigator()
@@ -39,7 +40,7 @@ export default function App() {
         <Stack.Screen name='Home' component={HomeScreen} />
         <Stack.Screen name='Add' component={AddScreen} />
         <Stack.Screen name='Update' component={UpdateScreen} />
-        <Stack.Screen name='All' component={AllTransactions} />
+        <Stack.Screen name='All' component={AllTransactions}  />
         <Stack.Screen name = 'Scan' component={QRCode}/>
         <Stack.Screen name='Pic' component={ProfilePicScreen}/>
         <Stack.Screen name='Budget' component={BudgetScreen}/>
