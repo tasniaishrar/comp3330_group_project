@@ -1,172 +1,95 @@
-import { AntDesign, FontAwesome5, MaterialIcons } from '@expo/vector-icons'
-import DateTimePicker from '@react-native-community/datetimepicker'
-import format from 'date-fns/format'
-import React, { useEffect, useLayoutEffect, useState } from 'react'
-import { StyleSheet, TouchableOpacity, Button, View, KeyboardAvoidingView, TextInput } from 'react-native'
-import { Avatar, Text } from 'react-native-elements'
-import CustomListItem from '../components/CustomListItem'
-import { auth, db } from '../firebase'
 import { StatusBar } from 'expo-status-bar'
+import React, { useLayoutEffect, useState } from 'react'
+import { Button, KeyboardAvoidingView, StyleSheet, TextInput, View } from 'react-native'
+import { auth, db } from '../firebase'
 
-const SetBudgetLimit = ({navigation}) => {
-    useLayoutEffect(() => {
-      navigation.setOptions({
-        title: 'RECEIPTIFY',
-        headerStyle: { 
-          backgroundColor: '#90BE6D',
-        },
-        headerTintColor: 'white',
-      })
-    }, [navigation])
-    useLayoutEffect(() => {
-      navigation.setOptions({
-        headerBackTitle: 'Back',
-      })
-    }, [navigation])
+const SetBudgetLimit = ({ navigation }) => {
+  const [submitLoading, setSubmitLoading] = useState(false)
+  useLayoutEffect(() => {
+    navigation.setOptions({
+      title: 'RECEIPTIFY',
+      headerStyle: {
+        backgroundColor: '#90BE6D',
+      },
+      headerTintColor: 'white',
+    })
+  }, [navigation])
+  useLayoutEffect(() => {
+    navigation.setOptions({
+      headerBackTitle: 'Back',
+    })
+  }, [navigation])
+
+  const [budget, setBudget] = useState('')
+  const createBudget = () => {
+    if (budget && auth) {
+      setSubmitLoading(true)
+        db.collection('budget')
+          .add({
+            email: auth.currentUser.email,
+            userBuget: budget,
+          })
+          .then(() => clearInputFields())
+          .catch((error) => alert(error.message))
+    }
+    else {
+      alert('Please fill in the Bedget field')
+      setSubmitLoading(false)
+    }
+  }
+  
+  const clearInputFields = () => {
+    alert('Added Successfully')
+    setBudget('')
+    navigation.navigate('Budget')
+    setSubmitLoading(false)
+  }
 
     return (
-        <KeyboardAvoidingView style={styles.container}>
-      <StatusBar style='dark' />
-      <View style={styles.inputContainer}>
-      <TextInput
-          style={styles.input}
-          keyboardType
-          placeholder='Set new Budget Limit'
-        //   value={shop}
-        //   onChangeText={(text) => setShop(text)}
-        />
+      <KeyboardAvoidingView style={styles.container}>
+        <StatusBar style='dark' />
+        <View style={styles.inputContainer}>
 
-        <Button
-          containerStyle={styles.button}
-          title='Add'
-          //onPress={createExpense}
-          //loading={submitLoading}
-        />
-      </View>
-    </KeyboardAvoidingView>
-      )
-    }
+          <TextInput
+            style={styles.input}
+            keyboardType='numeric'
+            placeholder='Set New Budget Limit'
+            value={budget}
+            onChangeText={(text) => setBudget(text)}
+          />
+
+          <Button
+            containerStyle={styles.button}
+            title='Add'
+            onPress={createBudget}
+            loading={submitLoading}
+          />
+        </View>
+      </KeyboardAvoidingView>
+  )
+}
     
 export default SetBudgetLimit
 
-    const styles = StyleSheet.create({
-        container: {
-          backgroundColor: 'white',
-          flex: 1,
-          alignItems: 'flex-start',
-          justifyContent: 'flex-start',
-          padding: 10,
-        },
-        profile: {
-          flexDirection: 'column',
-          alignItems: 'center',
-        },
-        card: {
-          backgroundColor: '#Fafafa',
-          alignItems: 'center',
-          width: '100%',
-          padding: 5,
-          borderRadius: 10,
-          shadowColor: '#000',
-          shadowOffset: {width: 0, height: 2},
-          shadowOpacity: 0.23,
-          shadowRadius: 2.62,
-          elevation: 4,
-          marginVertical: 5,
-          marginBottom: 15,
-        },
-        cardTop: {
-          // backgroundColor: 'blue',
-          marginBottom: 20,
-        },
-        cardBottom: {
-          flexDirection: 'row',
-          justifyContent: 'space-evenly',
-          width: '100%',
-          margin: 'auto',
-          backgroundColor: '#fafafa',
-          borderRadius: 5,
-        },
-        cardBottomSame: {
-          flexDirection: 'row',
-          justifyContent: 'center',
-          alignItems: 'center',
-        },
-        recentTitle: {
-          flexDirection: 'row',
-          alignItems: 'center',
-          justifyContent: 'space-between',
-          width: '100%',
-        },
-        recentTransactions: {
-          backgroundColor: 'white',
-          width: '100%',
-        },
-        seeAll: {
-          fontWeight: 'bold',
-          color: 'green',
-          fontSize: 16,
-        },
-        addButton: {
-          position: 'absolute',
-          bottom: 0,
-          padding: 10,
-          alignSelf: 'center',
-          backgroundColor: 'white',
-          flexDirection: 'row',
-          justifyContent: 'space-around',
-          width: '100%',
-          alignItems: 'center',
-          shadowColor: '#000',
-          shadowOffset: {
-            width: 0,
-            height: 12,
-          },
-          shadowOpacity: 0.58,
-          shadowRadius: 16.0,
-          elevation: 24,
-        },
-        buttonContainer: {
-          flexDirection: 'column',
-          alignItems: 'center',
-        },
-        plusButton: {
-          backgroundColor: 'white',
-          padding: 10,
-          borderRadius: 50,
-          shadowColor: '#000',
-          shadowOffset: {
-            width: 0,
-            height: 12,
-          },
-          shadowOpacity: 0.58,
-          shadowRadius: 16.0,
-          elevation: 24,
-        },
-        containerNull: {
-          alignItems: 'center',
-          justifyContent: 'center',
-          flex: 1,
-          width: '100%',
-        },
-      
-        buttonStyle: {
-          marginTop: 25,
-          display: "flex",
-          justifyContent: "center",
-          alignItems: 'center',
-          alignSelf: 'center',
-          borderRadius: 10,
-          padding: 14,
-          backgroundColor: '#97B973',
-          borderRadius: 6,
-        },
-      
-        textStyle: {
-          color: 'white',
-          textAlign: 'center',
-          fontSize: 16,
-        },
-        
-      })
-      
+const styles = StyleSheet.create({
+  container: {
+    backgroundColor: '#FFFFFF',
+    flex: 1,
+    alignItems: 'center',
+    justifyContent: 'center',
+    padding: 10,
+  },
+  inputContainer: {
+    width: 300,
+  },
+  input: {
+    height: 50,
+    borderColor: 'gray',
+    borderBottomWidth: 1,
+    marginBottom: 20,
+  },
+  button: {
+    width: 300,
+    marginTop: 10,
+  },
+})
