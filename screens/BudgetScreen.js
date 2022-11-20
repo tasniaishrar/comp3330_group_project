@@ -1,11 +1,9 @@
-import { AntDesign, FontAwesome5, MaterialIcons } from '@expo/vector-icons'
+import { AntDesign } from '@expo/vector-icons';
+import React, { useEffect, useLayoutEffect, useState } from 'react';
+import { StyleSheet, TouchableOpacity, View } from 'react-native';
 import CircularProgress from 'react-native-circular-progress-indicator';
-import React, { useEffect, useLayoutEffect, useState } from 'react'
-import { StyleSheet, TouchableOpacity, View } from 'react-native'
-import { Avatar, Text } from 'react-native-elements'
-import CustomListItem from '../components/CustomListItem'
-import { auth, db } from '../firebase'
-
+import { Text } from 'react-native-elements';
+import { auth, db } from '../firebase';
 
 const BudgetScreen = ({navigation}) => {
   useLayoutEffect(() => {
@@ -54,6 +52,21 @@ const BudgetScreen = ({navigation}) => {
   const [totalExpense, setTotalExpense] = useState([])
   const [expense, setExpense] = useState(0)
   
+
+  //budget progress
+  const [budget, setBudget] = useState(0)
+  useEffect(() => {
+    const myBudget = db
+      .collection('budget')
+      .doc(auth.currentUser.email)
+      .onSnapshot(
+        (snapshot) =>
+          setBudget(snapshot.data()?.userBudget)
+      )
+    return myBudget
+  }, [])
+
+  
   useEffect(() => {
     if (totalExpense) {
       if (totalExpense?.length == 0) {
@@ -76,22 +89,6 @@ const BudgetScreen = ({navigation}) => {
     }
   }, [transactions])
 
-  //budget progress
-  // const [budget, setBudget] = useState('')
-  // const value = () => {
-  //   useEffect(()=>{
-  //     const unsubscribe =db
-  //     .collection('budget')
-  //     .onSnapshot(snapshot) =>
-  //     setBudget(
-  //       snapshot.docs.map((doc) => ({
-  //         id: doc.id,
-  //         data: doc.data(),
-  //       }))
-  //     )
-  //   })
-  // }
-
   return (
     <>
       <View style={styles.container}>
@@ -105,12 +102,12 @@ const BudgetScreen = ({navigation}) => {
             <View>
               <View style={styles.cardBottomSame}>
               <CircularProgress
-                value={3000}
+                value={expense}
                 valuePrefix = {'$'}
                 radius={120}
                 progressValueColor={'#7e7d7d'}
-                maxValue={4300}
-                title={'70% Spent'}
+                maxValue={budget}
+                title={`${(100-(budget-expense)/budget*100).toFixed(2)}% Spent`}
                 titleColor={'#bcbcbc'}
                 titleStyle={{fontWeight: 'bold', fontSize: 20}}
                 />
