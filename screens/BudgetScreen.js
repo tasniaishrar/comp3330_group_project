@@ -95,7 +95,7 @@ const BudgetScreen = ({navigation}) => {
         <View style={styles.card}>
           <View style={styles.cardTop}>
              <Text h3 style={{textAlign: 'center', marginLeft: 5, }}>
-                  BALANCE
+                  My Budget ${budget}
             </Text>
         </View>
           <View style={styles.cardBottom}>
