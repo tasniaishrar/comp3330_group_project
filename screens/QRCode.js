@@ -48,7 +48,7 @@ export default function QRScanner({navigation}) {
 
     } catch (e){
       alert("Incorrect barcode. Scan again!")
-      navigation.navigate('Home');
+      navigation.navigate('All');
     }
   
   };
