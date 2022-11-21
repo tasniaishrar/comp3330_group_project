@@ -6,8 +6,9 @@ import CustomListItem from '../components/CustomListItem'
 import { auth, db } from '../firebase'
 
 
-const HomeScreen = ({navigation}) => {
+const HomeScreen = ({ navigation }) => {
   const signOutUser = () => {
+    console.log(auth.currentUser);
     auth
       .signOut()
       .then(() => navigation.replace('Login'))
@@ -16,14 +17,14 @@ const HomeScreen = ({navigation}) => {
   useLayoutEffect(() => {
     navigation.setOptions({
       title: 'RECEIPTIFY',
-      headerStyle: { 
+      headerStyle: {
         backgroundColor: '#90BE6D',
       },
       headerTintColor: 'white',
       headerRight: () => (
-        <View style={{marginRight: 20, alignItems: "center"}}>
+        <View style={{ marginRight: 20, alignItems: "center" }}>
           <TouchableOpacity activeOpacity={0.5} onPress={signOutUser}>
-            <Text style={{fontSize: 15, color: 'white'}}>Logout</Text>
+            <Text style={{ fontSize: 15, color: 'white' }}>Logout</Text>
           </TouchableOpacity>
         </View>
       ),
@@ -59,7 +60,7 @@ const HomeScreen = ({navigation}) => {
   // stufff
   const [totalExpense, setTotalExpense] = useState([])
   const [expense, setExpense] = useState(0)
-  
+
   useEffect(() => {
     if (totalExpense) {
       if (totalExpense?.length == 0) {
@@ -88,32 +89,32 @@ const HomeScreen = ({navigation}) => {
         <View style={styles.card}>
           <View style={styles.cardTop}>
             <View style={styles.profile}>
-              <View style={{margin:5}}>
+              <View style={{ margin: 5 }}>
                 <Avatar size='large' rounded source={{ uri: auth?.currentUser?.photoURL, }} />
               </ View>
-              <View style={{marginTop: 5}}>
-              <Text h4 style={{color: '#4A2D5D'}}>
-                {auth.currentUser.displayName}
-              </Text>
+              <View style={{ marginTop: 5 }}>
+                <Text h4 style={{ color: '#4A2D5D' }}>
+                  {auth.currentUser.displayName}
+                </Text>
+              </View>
             </View>
           </View>
-        </View>
           <View style={styles.cardBottom}>
             <View>
               <View style={styles.cardBottomSame}>
-                <Text style={{textAlign: 'center', marginLeft: 5}}>
+                <Text style={{ textAlign: 'center', marginLeft: 5 }}>
                   Total Expense
                 </Text>
               </View>
-              <Text h4 style={{textAlign: 'center'}}>
+              <Text h4 style={{ textAlign: 'center' }}>
                 {`$ ${expense?.toFixed(2)}`}
               </Text>
             </View>
           </View>
         </View>
-        
+
         <View style={styles.recentTitle}>
-          <Text h4 style={{color: '#4A2D5D'}}>
+          <Text h4 style={{ color: '#4A2D5D' }}>
             Recent Transactions
           </Text>
           <TouchableOpacity
@@ -139,7 +140,7 @@ const HomeScreen = ({navigation}) => {
         ) : (
           <View style={styles.containerNull}>
             <FontAwesome5 name='list-alt' size={24} color='#EF8A76' />
-            <Text h4 style={{color: '#4A2D5D'}}>
+            <Text h4 style={{ color: '#4A2D5D' }}>
               No Transactions
             </Text>
           </View>
@@ -148,24 +149,24 @@ const HomeScreen = ({navigation}) => {
 
       <View style={styles.addButton}>
         {/*Home Button */}
-          <TouchableOpacity disabled={true}
-            style={styles.buttonContainer}
-            activeOpacity={0.5}
-            onPress={() => navigation.navigate('Home')}
-          >
-            <AntDesign name='home' size={24} color='#66AFBB' />
-            <Text style={{padding:3, fontWeight:'700', color:'#7D7D7D'}}>Home</Text>
-          </TouchableOpacity>
+        <TouchableOpacity disabled={true}
+          style={styles.buttonContainer}
+          activeOpacity={0.5}
+          onPress={() => navigation.navigate('Home')}
+        >
+          <AntDesign name='home' size={24} color='#66AFBB' />
+          <Text style={{ padding: 3, fontWeight: '700', color: '#7D7D7D' }}>Home</Text>
+        </TouchableOpacity>
 
-         {/*QR Scanner Button */}
+        {/*QR Scanner Button */}
         <TouchableOpacity
           style={styles.plusButton}
           onPress={() => navigation.navigate('Scan')}
           activeOpacity={0.5}
         >
-            <AntDesign name='qrcode' size={50} color='black' />   
+          <AntDesign name='qrcode' size={50} color='black' />
         </TouchableOpacity>
-        
+
         {/*Budget Button */}
         <TouchableOpacity
           style={styles.buttonContainer}
@@ -173,7 +174,7 @@ const HomeScreen = ({navigation}) => {
           onPress={() => navigation.navigate('Budget')}
         >
           <AntDesign name='calculator' size={24} color='#EF8A76' />
-          <Text style={{padding:3, fontWeight:'700', color:'#7D7D7D'}}>Budget</Text>
+          <Text style={{ padding: 3, fontWeight: '700', color: '#7D7D7D' }}>Budget</Text>
         </TouchableOpacity>
       </View>
     </>
@@ -201,7 +202,7 @@ const styles = StyleSheet.create({
     padding: 5,
     borderRadius: 10,
     shadowColor: '#000',
-    shadowOffset: {width: 0, height: 2},
+    shadowOffset: { width: 0, height: 2 },
     shadowOpacity: 0.23,
     shadowRadius: 2.62,
     elevation: 4,

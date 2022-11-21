@@ -1,127 +1,103 @@
-import {Avatar} from 'react-native-paper'
-import {StatusBar} from 'expo-status-bar'
-import React, {Component, useLayoutEffect, useState} from 'react'
-import {StyleSheet, View, KeyboardAvoidingView, Text, TouchableHighlight} from 'react-native'
-import {Input, Button} from 'react-native-elements'
-import {auth} from '../firebase'
-import logo from '../assets/splash.png'
-import{launchCamera,launchImageLibrary} from 'react-native-image-picker'
+import React, { useState, useCallback, useLayoutEffect } from 'react';
+import { StyleSheet, View, TouchableOpacity, Text } from 'react-native';
+import * as ImagePicker from 'expo-image-picker';
+import { ImagePickerModal } from '../components/image-picker-modal';
+import { ImagePickerAvatar } from '../components/image-picker-avatar';
 
-const ProfilePicScreen = ({navigation}) => {
-    const [Pic, SetPic] = React.useState('');
-    const [Snap, SetSnap] = React.useState('');
+export default function ProfilePicScreen({ navigation, route }) {
+    const [pickerResponse, setPickerResponse] = useState(null);
+    const [visible, setVisible] = useState(false);
+    const [image, setImage] = useState(null);
+    const [imageUrl, setImageUrl] = useState(false);
 
     useLayoutEffect(() => {
         navigation.setOptions({
-          headerBackTitle: 'Back to Register',
+            headerBackTitle: 'Back to Register',
+            imageUrl: imageUrl
         })
-      }, [navigation])
+    }, [navigation])
 
-    //trial #2
-      const LoadLib = () =>{
-        launchImageLibrary({}, (response)=>{
-            if(response.didCancel){
-                alert('Cancelled Image Selection')
-            }
-            else if(response.errorCode=='permission'){
-                alert('Please allow access to your device galary')
-            }else if(response.errorCode=='others'){
-                alert(response.errorCode)
-            }else if(response_assets[0].fileSize > 2097152){
-                alert('Maximum image size exceeded \n Please choose image under 2MB')
-            }else{
-                SetPic(response.assets[0].base64);
-            }    
-        })
-    }
+    const onImageLibraryPress = async () => {
+        let result = await ImagePicker.launchImageLibraryAsync({
+            mediaTypes: ImagePicker.MediaTypeOptions.All,
+            allowsEditing: true,
+            quality: 1,
+        });
 
-    const Loadcamera =()=>{
-        launchCamera({}, (response)=>{
-            const source ={uri: response?.uri};
-            console.log(source);
-            setImage(source)
-        })
-    }
+        console.log(result);
 
-    //trial #1
-    // const uploadImage = () => {
-    //     let options = {
-    //         mediaType: 'photo',
-    //         quality:1,
-    //         includeBase64: true,
-    //     };
+        if (!result.canceled) {
+            setImage(result.uri);
+            setImageUrl(result.uri);
+            alert(
+                'Upload Successful!',
+            );
+            setVisible(false);
 
-        
+        }
+    };
 
-        // launchImageLibrary(options,response=>{
-        //     if(response.didCancel){
-        //         alert('Cancelled Image Selection')
-        //     }
-        //     else if(response.errorCode=='permission'){
-        //         alert('Please allow access to your device galary')
-        //     }else if(response.errorCode=='others'){
-        //         alert(response.errorCode)
-        //     }else if(response_assets[0].fileSize > 2097152){
-        //         alert('Maximum image size exceeded \n Please choose image under 2MB')
-        //     }else{
-        //         SetPic(response.assets[0].base64);
-        //     }
-        // })
-    
-    
-    return(
-        <KeyboardAvoidingView style={styles.container}>
-            <StatusBar style='light' />
-                <Text h4 style={{marginBottom: 50}}>
-                Upload a Picture
-                </Text>
-                <View>
-                    <View style={styles.centerContent}>
-                        <TouchableHighlight
-                            style={styles.centerContent}
-                            onPress={()=>uploadImage()}
-                            underlayColor= "rgba(0,0,0,0)">
-                            <Avatar.Image
-                                style={styles.centerContent}
-                                size={250}
-                                source={{uri:'data:image/png;base64,'+Pic}}/>
-                        </TouchableHighlight>
-                    </View>
-                    <View style={[styles.centerContent]}>
-                        <Button 
-                            containerStyle={styles.button}
-                            onPress={()=>LoadLib()}
-                            title='Upload Image'
-                        />
-                        <Button
-                            containerStyle={styles.button}
-                            onPress={()=>Loadcamera()}
-                            title='Capture Image'
-                        />
-            </View>
+    const onCameraPress = async () => {
+        let result = await ImagePicker.launchCameraAsync({
+            mediaTypes: ImagePicker.MediaTypeOptions.All,
+            allowsEditing: true,
+            quality: 1,
+        });
+
+        console.log(result);
+
+        if (!result.canceled) {
+            setImage(result.uri);
+            setImageUrl(result.uri);
+            alert(
+                'Upload Successful!',
+            );
+            setVisible(false);
+
+        }
+
+        console.log(image)
+        console.log(result.uri)
+
+    };
+
+
+    return (
+        <View style={styles.screen}>
+            <ImagePickerAvatar uri={image} onPress={() => setVisible(true)} />
+            <ImagePickerModal
+                isVisible={visible}
+                onClose={() => setVisible(false)}
+                onImageLibraryPress={onImageLibraryPress}
+                onCameraPress={onCameraPress}
+            />
+            <TouchableOpacity activeOpacity={.5} style={styles.buttonStyle} onPress={() => navigation.navigate('Register', { imageUrl: imageUrl })}>
+                <Text style={styles.textStyle}>Save Changes</Text>
+            </TouchableOpacity>
         </View>
-    </KeyboardAvoidingView>
-
     );
 }
 
-export default ProfilePicScreen
-
 const styles = StyleSheet.create({
-    container: {
-      flex: 1,
-      alignItems: 'center',
-      justifyContent: 'center',
-      padding: 10,
-      backgroundColor: '#FAFAFA',
+    screen: {
+        flex: 1,
+        backgroundColor: '#f2f2fC',
     },
-    inputContainer: {
-      width: 300,
+    buttonStyle: {
+        marginTop: 25,
+        display: "flex",
+        justifyContent: "center",
+        alignItems: 'center',
+        alignSelf: 'center',
+        borderRadius: 10,
+        padding: 14,
+        backgroundColor: '#97B973',
+        borderRadius: 6,
     },
-    button: {
-      width: 300,
-      marginTop: 10,
-      backgroundColor:'#97B973',
+
+    textStyle: {
+        color: 'white',
+        textAlign: 'center',
+        fontSize: 16,
     },
-  })
-  
+});

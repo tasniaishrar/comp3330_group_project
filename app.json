@@ -17,7 +17,11 @@
       "**/*"
     ],
     "ios": {
-      "supportsTablet": true
+      "supportsTablet": true,
+      "infoPlist": {
+        "NSCameraUsageDescription": "$(PRODUCT_NAME) would like to access your camera",
+        "NSPhotoLibraryAddUsageDescription": "$(PRODUCT_NAME) would like to access your camera roll"
+      }
     },
     "android": {
       "adaptiveIcon": {
@@ -29,8 +33,13 @@
       "favicon": "./assets/favicon.ico"
     },
     "plugins": [
-      "react-native-vision-camera"
+      "react-native-vision-camera",
+      [
+        "expo-image-picker",
+        {
+          "photosPermission": "Allow $(PRODUCT_NAME) to access your photos"
+        }
+      ]
     ]
-
   }
 }

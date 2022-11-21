@@ -1,8 +1,8 @@
 import 'react-native-gesture-handler'
-import {StatusBar} from 'expo-status-bar'
-import React, {useEffect, useState} from 'react'
-import {NavigationContainer} from '@react-navigation/native'
-import {createStackNavigator} from '@react-navigation/stack'
+import { StatusBar } from 'expo-status-bar'
+import React, { useEffect, useState } from 'react'
+import { NavigationContainer } from '@react-navigation/native'
+import { createStackNavigator } from '@react-navigation/stack'
 
 // pages
 import HomeScreen from './screens/HomeScreen'
@@ -40,11 +40,11 @@ export default function App() {
         <Stack.Screen name='Home' component={HomeScreen} />
         <Stack.Screen name='Add' component={AddScreen} />
         <Stack.Screen name='Update' component={UpdateScreen} />
-        <Stack.Screen name='All' component={AllTransactions}  />
-        <Stack.Screen name = 'Scan' component={QRCode}/>
-        <Stack.Screen name='Pic' component={ProfilePicScreen}/>
-        <Stack.Screen name='Budget' component={BudgetScreen}/>
-        <Stack.Screen name = 'SetLimit' component={SetBudgetLimit}/>
+        <Stack.Screen name='All' component={AllTransactions} />
+        <Stack.Screen name='Scan' component={QRCode} />
+        <Stack.Screen name='Set Profile Picture' component={ProfilePicScreen} />
+        <Stack.Screen name='Budget' component={BudgetScreen} />
+        <Stack.Screen name='SetLimit' component={SetBudgetLimit} />
       </Stack.Navigator>
     </NavigationContainer>
   )

@@ -1,20 +1,20 @@
-import {StatusBar} from 'expo-status-bar'
-import React, {useLayoutEffect, useState} from 'react'
-import {StyleSheet, View, KeyboardAvoidingView} from 'react-native'
-import {Input, Button, Text, Image} from 'react-native-elements'
-import {auth} from '../firebase'
+import { StatusBar } from 'expo-status-bar'
+import React, { useLayoutEffect, useState } from 'react'
+import { StyleSheet, View, KeyboardAvoidingView } from 'react-native'
+import { Input, Button, Text, Image } from 'react-native-elements'
+import { auth } from '../firebase'
 import logo from '../assets/splash.png'
 import * as ImagePicker from 'expo-image-picker'
 
-// function Photo({navigation}) {
-//   const[image, setImage] = useState('');
+// function Photo({ navigation }) {
+//   const [image, setImage] = useState('');
 //   useEffect(() => {
 //     enableAccess();
 //   }, []);
 
-//   const enableAccess= async () => {
-//     const {granted} = await ImagePicker.requestMediaLibraryPermissionsAsync();
-  
+//   const enableAccess = async () => {
+//     const { granted } = await ImagePicker.requestMediaLibraryPermissionsAsync();
+
 //     if (!granted) alert('Please allow access to your photo album');
 //   };
 
@@ -25,22 +25,20 @@ import * as ImagePicker from 'expo-image-picker'
 //         quality: 0.5,
 //       })
 //       console.log(data.uri);
-      
+
 //       if (!data.cancelled) setImage(data.uri);
 //     } catch (error) {
-//       console. log( 'Error', error);
+//       console.log('Error', error);
 //     }
 //   };
-//   return(
-//   );
 // }
 
-const RegisterScreen = ({navigation}) => {
+const RegisterScreen = ({ navigation, route }) => {
   const [fullName, setFullName] = useState('')
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
-  const [imageUrl, setImageUrl] = useState('')
   const [submitLoading, setSubmitLoading] = useState(false)
+  const { imageUrl } = route?.params || {};
 
   useLayoutEffect(() => {
     navigation.setOptions({
@@ -58,7 +56,8 @@ const RegisterScreen = ({navigation}) => {
             authUser.user.updateProfile({
               displayName: fullName,
               photoURL:
-                imageUrl ||
+                imageUrl
+                ||
                 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQVe0cFaZ9e5Hm9X-tdWRLSvoZqg2bjemBABA&usqp=CAU',
             })
         })
@@ -75,16 +74,15 @@ const RegisterScreen = ({navigation}) => {
     setFullName('')
     setEmail('')
     setPassword('')
-    setImageUrl('')
   }
   return (
     <KeyboardAvoidingView behavior='padding' style={styles.container}>
       <StatusBar style='light' />
       <Image
         source={logo}
-        style={{width: 100, height: 100, marginBottom: 20}}
+        style={{ width: 100, height: 100, marginBottom: 20 }}
       />
-      <Text h4 style={{marginBottom: 50}}>
+      <Text h4 style={{ marginBottom: 50 }}>
         Create an account
       </Text>
       <View style={styles.inputContainer}>
@@ -98,14 +96,14 @@ const RegisterScreen = ({navigation}) => {
         <Input
           placeholder='Email'
           type='text'
-          
+
           value={email}
           onChangeText={(text) => setEmail(text)}
         />
         <Input
           placeholder='Password'
           type='text'
-          
+
           value={password}
           secureTextEntry
           onChangeText={(text) => setPassword(text)}
@@ -119,9 +117,9 @@ const RegisterScreen = ({navigation}) => {
           </View>
         </View> */}
         <Button
-            onPress={() => navigation.navigate('Pic')}
-            containerStyle={styles.button}
-            title='Choose Profile Picture (Optional)'
+          onPress={() => navigation.navigate('Set Profile Picture')}
+          containerStyle={styles.button}
+          title='Choose Profile Picture (Optional)'
         />
 
         {/* <Input
@@ -159,6 +157,6 @@ const styles = StyleSheet.create({
   button: {
     width: 300,
     marginTop: 10,
-    backgroundColor:'#97B973',
+    backgroundColor: '#97B973',
   },
 })
