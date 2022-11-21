@@ -85,6 +85,10 @@ const LoginScreen = ({navigation}) => {
             title='Login'
             onPress={signIn}
           />
+          <View style={{paddingTop: 20}}>
+            <Text h6 style={{color: 'grey'}}>New user? Register here</Text> 
+          </View>
+          
           <Button
             onPress={() => navigation.navigate('Register')}
             containerStyle={styles.button}

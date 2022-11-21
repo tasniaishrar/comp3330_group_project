@@ -24,6 +24,8 @@ yarn add react-native-permissions
 yarn add react-native-image-picker
 yarn add react-native-paper
 yarn add react-native-reanimated
+yarn add react-native-modal
+yarn add firebase@7.9.0
 ```
 3. Upgrade expo
 

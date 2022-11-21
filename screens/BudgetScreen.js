@@ -89,6 +89,17 @@ const BudgetScreen = ({navigation}) => {
     }
   }, [transactions])
 
+  // if expense is more than budget
+  const [total, setTotal] = useState(0)
+  useEffect(() => {
+    if(expense > budget){
+      setTotal(expense-budget)
+    }
+    else{
+      setTotal(expense)
+    }
+  }, [])
+
   return (
     <>
       <View style={styles.container}>
@@ -118,9 +129,10 @@ const BudgetScreen = ({navigation}) => {
               <CircularProgress
                   value={expense}
                   valuePrefix={'$'}
+                  progressValueFontSize={29}
                   title={`${(100-(budget-expense)/budget*100).toFixed(2)}% Spent`}
                   titleColor={'#bcbcbc'}
-                  titleStyle={{ fontWeight: 'bold', fontSize: 20 }}
+                  titleStyle={{ fontWeight: 'bold', fontSize: 19 }}
                   duration={750} 
                   radius={120}
                   progressValueColor={'#7e7d7d'}
@@ -294,7 +306,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     //alignSelf: 'center',
     borderRadius: 30,
-    padding: 20,
+    padding: 17,
     backgroundColor: '#97B973',
   },
 

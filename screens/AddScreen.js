@@ -84,6 +84,7 @@ const AddScreen = ({navigation}) => {
       <TextInput
           style={styles.input}
           placeholder='Add Shop'
+          placeholderTextColor= "grey"
           value={shop}
           onChangeText={(text) => setShop(text)}
         />
@@ -91,6 +92,7 @@ const AddScreen = ({navigation}) => {
         <TextInput
           style={styles.input}
           placeholder='Add Item'
+          placeholderTextColor= "grey"
           value={input}
           onChangeText={(text) => setInput(text)}
         />
@@ -99,6 +101,7 @@ const AddScreen = ({navigation}) => {
           style={styles.input}
           keyboardType='numeric'
           placeholder='Enter Price'
+          placeholderTextColor= "grey"
           value={price}
           onChangeText={(text) => setPrice(text)}
         />
@@ -107,6 +110,7 @@ const AddScreen = ({navigation}) => {
           style={styles.input}
           keyboardType='numeric'
           placeholder='Enter Quantity'
+          placeholderTextColor= "grey"
           value={quantity}
           onChangeText={(text) => setQuantity(text)}
         />
@@ -125,6 +129,7 @@ const AddScreen = ({navigation}) => {
         <Text
           style={styles.input}
           placeholder='Select Date'
+          placeholderTextColor= "grey"
           value={result}
           onPress={showDatepicker}
           // editable={false}
@@ -161,6 +166,7 @@ const styles = StyleSheet.create({
     borderColor: 'gray',
     borderBottomWidth: 1,
     marginBottom: 20,
+
   },
   button: {
     width: 300,
