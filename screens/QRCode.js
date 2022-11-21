@@ -9,7 +9,7 @@ export default function QRScanner({navigation}) {
 
   useLayoutEffect(() => {
     navigation.setOptions({
-      title: 'All Transactions',
+      title: 'Scan',
       headerStyle: { 
         backgroundColor: '#90BE6D',
       },
@@ -27,19 +27,30 @@ export default function QRScanner({navigation}) {
 
   const handleBarCodeScanned = ({ type, data }) => {
     setScanned(true);
-    object = JSON.parse(data)
-    if(object.date === '' || object.shop=== '' || object.expenseObj=== ''|| 
-        object.price=== '' || object.quantity === ''){
+
+    try{
+      object = JSON.parse(data);
+
+      if(object.date === '' || object.shop=== '' || object.expenseObj=== ''|| 
+        object.price=== '' || object.quantity === '' || !object.hasOwnProperty("shop") || 
+        !object.hasOwnProperty("expenseObj") || !object.hasOwnProperty("date") ||
+        !object.hasOwnProperty("quantity") || !object.hasOwnProperty("price")){
       alert('Incorrect barcode. Scan again!');
-      navigation.navigate('Scan');
+      navigation.navigate('Home');
+      }
+      else{  
+        sendData(object.date, object.shop, object.expenseObj, object.price, object.quantity);
+        alert(
+          'Scan Successful!',
+        );
+        navigation.navigate('All');
+      }
+
+    } catch (e){
+      alert("Incorrect barcode. Scan again!")
+      navigation.navigate('Home');
     }
-    else{  
-      sendData(object.date, object.shop, object.expenseObj, object.price, object.quantity);
-      alert(
-        'Scan Successful!',
-      );
-      navigation.navigate('All');
-    }
+  
   };
 
 
