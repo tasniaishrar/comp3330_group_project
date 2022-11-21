@@ -83,7 +83,6 @@ const AddScreen = ({navigation}) => {
       <View style={styles.inputContainer}>
       <TextInput
           style={styles.input}
-          keyboardType
           placeholder='Add Shop'
           value={shop}
           onChangeText={(text) => setShop(text)}

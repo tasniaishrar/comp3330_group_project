@@ -26,9 +26,10 @@ const SetBudgetLimit = ({ navigation }) => {
     if (budget && auth) {
       setSubmitLoading(true)
         db.collection('budget')
-          .add({
+          .doc(auth.currentUser.email)
+          .set({
             email: auth.currentUser.email,
-            userBuget: budget,
+            userBudget: budget,
           })
           .then(() => clearInputFields())
           .catch((error) => alert(error.message))

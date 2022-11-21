@@ -1,11 +1,9 @@
-import { AntDesign, FontAwesome5, MaterialIcons } from '@expo/vector-icons'
+import { AntDesign } from '@expo/vector-icons';
+import React, { useEffect, useLayoutEffect, useState } from 'react';
+import { StyleSheet, TouchableOpacity, View } from 'react-native';
 import CircularProgress from 'react-native-circular-progress-indicator';
-import React, { useEffect, useLayoutEffect, useState } from 'react'
-import { StyleSheet, TouchableOpacity, View } from 'react-native'
-import { Avatar, Text } from 'react-native-elements'
-import CustomListItem from '../components/CustomListItem'
-import { auth, db } from '../firebase'
-
+import { Text } from 'react-native-elements';
+import { auth, db } from '../firebase';
 
 const BudgetScreen = ({navigation}) => {
   useLayoutEffect(() => {
@@ -54,6 +52,21 @@ const BudgetScreen = ({navigation}) => {
   const [totalExpense, setTotalExpense] = useState([])
   const [expense, setExpense] = useState(0)
   
+
+  //budget progress
+  const [budget, setBudget] = useState(0)
+  useEffect(() => {
+    const myBudget = db
+      .collection('budget')
+      .doc(auth.currentUser.email)
+      .onSnapshot(
+        (snapshot) =>
+          setBudget(snapshot.data()?.userBudget)
+      )
+    return myBudget
+  }, [])
+
+  
   useEffect(() => {
     if (totalExpense) {
       if (totalExpense?.length == 0) {
@@ -76,43 +89,45 @@ const BudgetScreen = ({navigation}) => {
     }
   }, [transactions])
 
-  //budget progress
-  // const [budget, setBudget] = useState('')
-  // const value = () => {
-  //   useEffect(()=>{
-  //     const unsubscribe =db
-  //     .collection('budget')
-  //     .onSnapshot(snapshot) =>
-  //     setBudget(
-  //       snapshot.docs.map((doc) => ({
-  //         id: doc.id,
-  //         data: doc.data(),
-  //       }))
-  //     )
-  //   })
-  // }
-
   return (
     <>
       <View style={styles.container}>
         <View style={styles.card}>
           <View style={styles.cardTop}>
-             <Text h3 style={{textAlign: 'center', marginLeft: 5, }}>
-                  BALANCE
+            <Text h4 style={{
+              marginTop: 5,
+              textAlign: 'center',
+              fontWeight: 'bold',
+              color: 'gray'
+            }}>
+              {auth.currentUser.displayName}'s Monthly Budget Tracker
             </Text>
-        </View>
+            <Text style={{
+              paddingTop: 10,
+              textAlign: 'center',
+              fontWeight: 'bold',
+              color: 'green',
+              fontSize: 17,
+            }}>
+              Current Budget is ${budget}
+            </Text>
+          </View>
           <View style={styles.cardBottom}>
             <View>
               <View style={styles.cardBottomSame}>
               <CircularProgress
-                value={3000}
-                valuePrefix = {'$'}
-                radius={120}
-                progressValueColor={'#7e7d7d'}
-                maxValue={4300}
-                title={'70% Spent'}
-                titleColor={'#bcbcbc'}
-                titleStyle={{fontWeight: 'bold', fontSize: 20}}
+                  value={expense}
+                  valuePrefix={'$'}
+                  title={`${(100-(budget-expense)/budget*100).toFixed(2)}% Spent`}
+                  titleColor={'#bcbcbc'}
+                  titleStyle={{ fontWeight: 'bold', fontSize: 20 }}
+                  duration={750} 
+                  radius={120}
+                  progressValueColor={'#7e7d7d'}
+                  inActiveStrokeOpacity={0.4}
+                  activeStrokeWidth={20}
+                  inActiveStrokeWidth={20}
+                  maxValue={budget}
                 />
               </View>
             </View>
@@ -158,7 +173,7 @@ const BudgetScreen = ({navigation}) => {
         <TouchableOpacity disabled={true}
           style={styles.buttonContainer}
           activeOpacity={0.5}
-          onPress={() => navigation.navigate('All')}
+          onPress={() => navigation.navigate('Budget')}
         >
           <AntDesign name='calculator' size={24} color='#EF8A76' />
           <Text style={{padding:3, fontWeight:'700', color:'#7D7D7D'}}>Budget</Text>
@@ -197,7 +212,7 @@ const styles = StyleSheet.create({
     marginBottom: 15,
   },
   cardTop: {
-    // backgroundColor: 'blue',
+    marginTop: 10,
     marginBottom: 20,
   },
   cardBottom: {
@@ -212,6 +227,7 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'center',
     alignItems: 'center',
+    paddingBottom: 15,
   },
   recentTitle: {
     flexDirection: 'row',
@@ -276,17 +292,16 @@ const styles = StyleSheet.create({
     display: "flex",
     justifyContent: "center",
     alignItems: 'center',
-    alignSelf: 'center',
-    borderRadius: 10,
-    padding: 14,
+    //alignSelf: 'center',
+    borderRadius: 30,
+    padding: 20,
     backgroundColor: '#97B973',
-    borderRadius: 6,
   },
 
   textStyle: {
     color: 'white',
     textAlign: 'center',
-    fontSize: 16,
+    fontSize: 20,
   },
   
 })
