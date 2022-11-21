@@ -56,6 +56,7 @@ const SetBudgetLimit = ({ navigation }) => {
             style={styles.input}
             keyboardType='numeric'
             placeholder='Set New Budget Limit'
+            placeholderTextColor= "grey"
             value={budget}
             onChangeText={(text) => setBudget(text)}
           />

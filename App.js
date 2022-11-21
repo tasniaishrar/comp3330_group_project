@@ -3,6 +3,7 @@ import { StatusBar } from 'expo-status-bar'
 import React, { useEffect, useState } from 'react'
 import { NavigationContainer } from '@react-navigation/native'
 import { createStackNavigator } from '@react-navigation/stack'
+import { LogBox } from 'react-native';
 
 // pages
 import HomeScreen from './screens/HomeScreen'
@@ -19,6 +20,9 @@ import { Button } from 'react-native-elements'
 
 
 const Stack = createStackNavigator()
+
+LogBox.ignoreLogs(['AsyncStorage has been extracted from react-native core and will be removed in a future release.']);
+//LogBox.ignoreAllLogs();
 
 export default function App() {
   const globalScreenOptions = {
