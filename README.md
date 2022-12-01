@@ -8,9 +8,13 @@ Receiptify helps you eliminate the need for paper receipts at the Point-of-Sales
 https://innoacademy.engg.hku.hk/receiptify/
 
 ## UI Screenshots
-![WhatsApp Image 2022-12-01 at 17 29 06](https://user-images.githubusercontent.com/61655124/205019061-b6cb207b-10a0-4a88-867d-d048241d029a.jpg) ![WhatsApp Image 2022-12-01 at![WhatsApp Image 2022-12-01 at 17 29 06 1](https://user-images.githubusercontent.com/61655124/205019644-5b6a5b22-5de9-4b4c-93ec-9099eba56b43.jpg)
- 17 29 07](https://user-images.githubusercontent.com/61655124/205019515-3b4472a5-7e89-4ce7-99d5-b90bd1235dc3.jpg) ![image](https://user-images.githubusercontent.com/61655124/205019750-78ec4f0f-ddb0-4790-805c-eef461b5162d.png) ![2](https://user-images.githubusercontent.com/61655124/205019794-35697a5b-4b62-4e57-b3ee-7d70f125464a.jpg)
+![WhatsApp Image 2022-12-01 at 17 29 06](https://user-images.githubusercontent.com/61655124/205020313-ae9d9b6c-8314-4780-939a-f366126e534b.jpg)
+![WhatsApp Image 2022-12-01 at 17 29 06 1](https://user-images.githubusercontent.com/61655124/205020373-7c122eb6-523e-405b-b8e6-09aa951806b6.jpg)
+![1](https://user-images.githubusercontent.com/61655124/205020426-b54744c5-d8ca-44f0-824b-c5edf544ecb8.jpg)
+![2](https://user-images.githubusercontent.com/61655124/205020486-3e98068e-8a01-49a3-b127-ae66130d3371.jpg)
 
+POS side:
+![WhatsApp Image 2022-12-01 at 17 29 07](https://user-images.githubusercontent.com/61655124/205020541-1c95bcd5-bb24-4e5a-aeac-6b1f4ec8577a.jpg)
 
 ## Pre-requisites
 
