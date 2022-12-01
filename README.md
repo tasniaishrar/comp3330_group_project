@@ -8,10 +8,13 @@ Receiptify helps you eliminate the need for paper receipts at the Point-of-Sales
 https://innoacademy.engg.hku.hk/receiptify/
 
 ## UI Screenshots
-![login](https://user-images.githubusercontent.com/61655124/205030551-b23874d5-86c2-4731-b5fa-2a61551d72d9.jpg) | ![homr](https://user-images.githubusercontent.com/61655124/205030584-7c767850-6527-4948-8ae4-bca243341fc5.jpg) | ![WhatsApp Image 2022-12-01 at 18 21 44](https://user-images.githubusercontent.com/61655124/205030609-8f0fe942-6ada-460a-a78b-b9967a76b920.jpg) | ![all](https://user-images.githubusercontent.com/61655124/205030617-145a0470-0531-41f9-badd-3cff67c0d4e9.jpg) | ![budget](https://user-images.githubusercontent.com/61655124/205030669-9bd28cf3-fe0b-40dd-a683-f89652936d2a.jpg)
+
+![login](https://user-images.githubusercontent.com/61655124/205031875-3e7610ad-05c3-490c-82b4-274ed7dc33d0.jpg) | ![homr](https://user-images.githubusercontent.com/61655124/205031890-74149e51-a3f3-4e0f-ad04-ac1f2623089d.jpg) | ![WhatsApp Image 2022-12-01 at 18 21 44](https://user-images.githubusercontent.com/61655124/205031919-d33ed7dd-8cdf-441a-9f0c-1767d7b070bd.jpg) | ![alert](https://user-images.githubusercontent.com/61655124/205032017-967537e8-cf5c-47b4-a006-44821a4220f9.jpg) | ![all](https://user-images.githubusercontent.com/61655124/205032059-41cb9e8b-1aa7-431d-8801-1bf3098ee5b9.jpg) | ![budget](https://user-images.githubusercontent.com/61655124/205032084-2e00863b-7773-4ea5-8c14-f5a2002eb3dd.jpg)
 
 QR Code Generator at POS:
-![pos1](https://user-images.githubusercontent.com/61655124/205030500-abde42a8-795d-4b49-9b5e-1a6cd7d7b982.jpg)
+
+![pos1](https://user-images.githubusercontent.com/61655124/205031840-865f4638-884b-4eab-9b28-cfd7a07fc089.jpg)
+
 
 ## Pre-requisites
 
