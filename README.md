@@ -4,6 +4,9 @@
 
 Receiptify helps you eliminate the need for paper receipts at the Point-of-Sales (POS) by digitising your purchases and automatically adding them to your budget manager.
 
+## InnoShow 2022 Participation
+https://innoacademy.engg.hku.hk/receiptify/
+
 ## Pre-requisites
 
 - NodeJS
