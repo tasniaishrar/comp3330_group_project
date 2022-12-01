@@ -9,7 +9,7 @@ Receiptify helps you eliminate the need for paper receipts at the Point-of-Sales
 - NodeJS
 - Expo application on your mobile device
 
-## Usage
+## Usage of the mobile application (end-user side)
 
 1. Clone the application
 
@@ -19,13 +19,9 @@ git clone https://github.com/tasniaishrar/comp3330_group_project.git
 2. Add dependencies
 
 ```bash
-yarn add expo-barcode-scanner
-yarn add react-native-permissions
-yarn add react-native-image-picker
-yarn add react-native-paper
-yarn add react-native-reanimated
-yarn add react-native-modal
-yarn add firebase@7.9.0
+yarn
+ or
+npm install
 ```
 3. Upgrade expo
 
@@ -39,6 +35,40 @@ expo upgrade 45
 npm start
    or
 expo start
+
+```
+
+If the above commands are too slow in running the app on Expo:
+```bash
+npm start --tunnel
+
+```
+## Usage of the web application (POS side)
+
+1. Clone the application (skip this step if you have already cloned the repo)
+
+```bash
+git clone https://github.com/tasniaishrar/comp3330_group_project.git
+```
+
+2. Switch branch
+
+```bash
+git checkout POS-QRCodeGenerator
+```
+
+3. Add dependencies
+
+```bash
+yarn
+ or
+npm install
+```
+
+4. Run
+
+```bash
+npm start
 
 ```
 
