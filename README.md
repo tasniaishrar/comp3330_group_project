@@ -7,6 +7,9 @@ Receiptify helps you eliminate the need for paper receipts at the Point-of-Sales
 ## InnoShow 2022 Participation
 https://innoacademy.engg.hku.hk/receiptify/
 
+## UI Screenshots
+![WhatsApp Image 2022-12-01 at 17 29 06](https://user-images.githubusercontent.com/61655124/205019061-b6cb207b-10a0-4a88-867d-d048241d029a.jpg)
+
 ## Pre-requisites
 
 - NodeJS
